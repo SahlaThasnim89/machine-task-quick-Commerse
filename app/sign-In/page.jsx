@@ -34,7 +34,7 @@ const handleSubmit = async (e) => {
     role: isDeliveryPartner ? "delivery" : "customer",
   };
 
-  console.log(updatedForm);
+  // console.log(updatedForm);
 
   const res = await signIn("credentials", { redirect: false, ...updatedForm });
 
@@ -44,7 +44,7 @@ const handleSubmit = async (e) => {
     toast.success("Login successful");
 
     const userRes = await getSession();  
-    console.log("User Data:", userRes);
+    // console.log("User Data:", userRes);
 
     if (userRes?.user) {
       login(userRes.user); 

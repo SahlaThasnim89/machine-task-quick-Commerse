@@ -112,7 +112,13 @@ const Cart = () => {
                     </tr>
                   );
                 })}
+                {Object.keys(cartItems).length === 0 && (
+                  <div className="border-t border-gray-500/20 flex items-center justify-start">
+                    <p className="w-full  p-5"> ooops! cart is empty</p>
+                  </div>
+                )}
               </tbody>
+
             </table>
           </div>
           <button onClick={()=> router.push('/all-products')} className="group flex items-center mt-6 gap-2 text-orange-600">

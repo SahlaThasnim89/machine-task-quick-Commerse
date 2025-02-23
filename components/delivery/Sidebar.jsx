@@ -7,11 +7,11 @@ import { usePathname } from 'next/navigation';
 const SideBar = () => {
     const pathname = usePathname()
     const menuItems = [
-        { name: 'My Account', path: '/delivery', icon: assets.add_icon },
-        { name: 'Pending Orders', path: '/delivery/pending', icon: assets.product_list_icon },
+        { name: 'My Account', path: '/delivery', icon: assets.user_icon },
+        { name: 'Pending Orders', path: '/delivery/pending', icon: assets.add_icon },
         { name: 'Accepted Orders', path: '/delivery/accepted', icon: assets.order_icon },
-        { name: 'Out For Delivery Orders', path: '/delivery/outForDelivery', icon: assets.order_icon },
-        { name: 'Completed Orders', path: '/delivery/completed', icon: assets.order_icon },
+        { name: 'Out For Delivery Orders', path: '/delivery/outForDelivery', icon: assets.cart_icon },
+        { name: 'Completed Orders', path: '/delivery/completed', icon: assets.product_list_icon },
     ];
 
     return (

@@ -98,6 +98,13 @@ const Orders = () => {
                 </div>
               </div>
             ))}
+            {orders.length === 0 && (
+                   <div className="border-t border-gray-500/20 flex items-center justify-start">
+                   <p className="w-full  p-5"> ooops! no orders made in past</p>
+                 </div>
+                )}
+            
+            
           </div>
         </div>
       )}

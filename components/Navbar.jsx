@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { assets} from "@/assets/assets";
 import Link from "next/link"
- 
+import toast from "react-hot-toast";
 import Image from "next/image";
 import { useUserStore } from "@/Zustand/store";
 import { useRouter } from "next/navigation";
@@ -17,7 +17,7 @@ const Navbar = () => {
   const router=useRouter()
   const { name, email, isAuthenticated, logout, role } = useUserStore();
   const {isSeller}=useAppStore()
-  console.log(isAuthenticated,'isAuthenticated')
+  // console.log(isAuthenticated,'isAuthenticated')
   const routes = useRouter();
   const {data:session,status}=useSession()
   
@@ -41,10 +41,10 @@ const Navbar = () => {
       redirect:false,
     });
     logout();
+    toast.success("Logged out successfully");
   }
 
   const user=useUserStore()
-
 
 
 
@@ -81,16 +81,18 @@ const Navbar = () => {
           Account
         </button>
 
-        {isAuthenticated && (
-          <Menu anchorEl={anchorEl} open={open} onClose={handleClose} PaperProps={{
-            style: { width: 200 },
-}}
-        >
-            <MenuItem onClick={() => { routes.push('/customer'); handleClose(); }}>My Account</MenuItem>
-            <MenuItem onClick={() => { routes.push('/cart'); handleClose(); }}>My Cart</MenuItem>
-            <MenuItem onClick={() => { handleSignOut(); handleClose(); }}>Logout</MenuItem>
-          </Menu>
-        )}
+        {isAuthenticated && (role === "customer" ? (
+  <Menu anchorEl={anchorEl} open={open} onClose={handleClose} PaperProps={{ style: { width: 200 } }}>
+    <MenuItem onClick={() => { routes.push('/customer'); handleClose(); }}>My Account</MenuItem>
+    <MenuItem onClick={() => { routes.push('/cart'); handleClose(); }}>My Cart</MenuItem>
+    <MenuItem onClick={() => { handleSignOut(); handleClose(); }}>Logout</MenuItem>
+  </Menu>
+) : role === "delivery" ? (
+  <Menu anchorEl={anchorEl} open={open} onClose={handleClose} PaperProps={{ style: { width: 200 } }}>
+    <MenuItem onClick={() => { routes.push('/delivery'); handleClose(); }}>My Account</MenuItem>
+    <MenuItem onClick={() => { handleSignOut(); handleClose(); }}>Logout</MenuItem>
+  </Menu>
+) : null)}
       </ul>
     </div>
 

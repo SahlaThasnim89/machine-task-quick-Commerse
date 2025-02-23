@@ -9,7 +9,7 @@ import { SocketProvider } from "@/context/socketProvider";
 const outfit = Outfit({ subsets: ['latin'], weight: ["300", "400", "500"] })
 
 export const metadata = {
-  title: "Quick",
+  title: "Quick Commerse",
   description: "Quick Commerce & Delivery Tracking ",
 };
 

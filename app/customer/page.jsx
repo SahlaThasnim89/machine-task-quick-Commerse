@@ -25,7 +25,7 @@ const Profile = () => {
         const fetchUser = async () => {
           try {
             const res = await axiosConfig.get("/api/auth/user");
-            // console.log(res.data.user,'ioioi')
+            console.log(res.data.user,'ioioi')
             if (!res.data) throw new Error("Failed to fetch user");
             setUser(res.data.user);
           } catch (error) {

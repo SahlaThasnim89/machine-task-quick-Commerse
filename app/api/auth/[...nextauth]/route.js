@@ -17,15 +17,18 @@ const handler=NextAuth({
             },
             async authorize(credentials){
                 try{
+                    console.log('uyyi')
                     await connectDB()
                     const { email, password, role } = credentials;
                     const user=await User.findOne({email})
+                    console.log(user,'user')
                     if(!user){
                         throw new Error("User not found")
                     }
                     const isValidPassword=await bcrypt.compare(
                         password?? "",user.password
                     );
+                    console.log(isValidPassword,'isValidPassword')
                     if(!isValidPassword){
                         throw new Error("Invalid credentials")
                     }
