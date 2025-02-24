@@ -32,6 +32,8 @@ const Navbar = () => {
     }
   };
 
+
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -99,13 +101,13 @@ const Navbar = () => {
        
 
 
-      <div className="flex items-center md:hidden gap-3">
-        {isSeller && <button onClick={() => router.push('/seller')} className="text-xs border px-4 py-1.5 rounded-full">Seller Dashboard</button>}
+      {/* <div className="flex items-center md:hidden gap-3">
+        {role=== "delivery" && <button onClick={() => router.push('/delivery')}  className="text-xs border px-4 py-1.5 rounded-full">Delivery Dashboard</button>}
         <button className="flex items-center gap-2 hover:text-gray-900 transition">
           <Image src={assets.user_icon} alt="user icon" />
           Account
         </button>
-      </div>
+      </div> */}
     </nav>
   );
 };

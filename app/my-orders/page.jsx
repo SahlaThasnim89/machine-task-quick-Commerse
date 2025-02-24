@@ -1,8 +1,8 @@
-'use client';
+"use client";
 import React, { useEffect, useState } from "react";
-import { assets, orderDummyData } from "@/assets/assets";
+import { assets, orderDummyData, productsDummyData } from "@/assets/assets";
 import Image from "next/image";
- 
+
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Loading from "@/components/Loading";
@@ -10,84 +10,120 @@ import { useAppStore } from "@/context/AppContext";
 import axiosConfig from "@/utils/axiosConfig";
 
 const MyOrders = () => {
+  const { currency } = useAppStore();
 
-    const { currency } =  useAppStore();
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    const [orders, setOrders] = useState([]);
-    const [loading, setLoading] = useState(true);
+  const fetchOrders = async () => {
+    try {
+      setLoading(true);
 
-    const fetchOrders = async () => {
-        try {
-            setLoading(true);
-    
-            const response = await axiosConfig.get("/api/orders");
-            // console.log(response)
-    
-            if (!response.data) {
-                throw new Error("Failed to fetch orders");
-            }
-    
-            setOrders(response.data.orders || []);
-        } catch (error) {
-            console.log("Error fetching orders:", error);
-        } finally {
-            setLoading(false);
-        }
+      const response = await axiosConfig.get("/api/orders");
+      // console.log(response)
+
+      if (!response.data) {
+        throw new Error("Failed to fetch orders");
+      }
+
+      setOrders(response.data.orders || []);
+    } catch (error) {
+      console.log("Error fetching orders:", error);
+    } finally {
+      setLoading(false);
     }
+  };
 
-    useEffect(() => {
-        fetchOrders();
-    }, []);
+  useEffect(() => {
+    fetchOrders();
+  }, []);
 
-    return (
-        <>
-            <Navbar />
-            <div className="flex flex-col justify-between px-6 md:px-16 lg:px-32 py-6 min-h-screen">
-                <div className="space-y-5">
-                    <h2 className="text-lg font-medium mt-6">My Orders</h2>
-                    {loading ? <Loading /> : (<div className="max-w-5xl border-t border-gray-300 text-sm">
-                        {orders.length&&orders.map((order, index) => (
-                            <div key={index} className="flex flex-col md:flex-row gap-5 justify-between p-5 border-b border-gray-300">
-                                <div className="flex-1 flex gap-5 max-w-80">
-                                    <Image
-                                        className="max-w-16 max-h-16 object-cover"
-                                        src={assets.box_icon}
-                                        alt="box_icon"
-                                    />
-                                    <p className="flex flex-col gap-3">
-                                        <span className="font-medium text-base">
-                                            {order.products.map((item) => item.id + ` x ${item.quantity}`).join(", ")}
-                                        </span>
-                                        <span>Items : {order.products.length}</span>
-                                    </p>
-                                </div>
-                                <div>
-                                    <p>
-                                        <span className="font-medium">{order.address.fullName}</span>
-                                        <br />
-                                        <span >{order.address.area}</span>
-                                        <br />
-                                        <span>{`${order.address.city}, ${order.address.state}`}</span>
-                                        <br />
-                                        <span>{order.address.phoneNumber}</span>
-                                    </p>
-                                </div>
-                                <p className="font-medium my-auto">{currency}{order.orderAmount}</p>
-                                <div>
-                                    <p className="flex flex-col">
-                                        <span>Method : COD</span>
-                                        <span>Date : {new Date(order.date).toLocaleDateString()}</span>
-                                        <span>Payment : Pending</span>
-                                    </p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>)}
-                </div>
+  const getProductName = (id) => {
+    const product = productsDummyData.find((p) => p._id === id);
+    return product ? product.name : "Unknown Product";
+  };
+
+  const getProductImage = (id) => {
+    const product = productsDummyData.find((p) => p._id === id);
+    return product?.image?.[0] || assets.box_icon;
+  };
+
+  return (
+    <>
+      <Navbar />
+      <div className="flex flex-col justify-between px-6 md:px-16 lg:px-32 py-6 min-h-screen">
+        <div className="space-y-5">
+          <h2 className="text-lg font-medium mt-6">My Orders</h2>
+          {loading ? (
+            <Loading />
+          ) : (
+            <div className="max-w-5xl border-t border-gray-300 text-sm">
+              {orders.length &&
+                orders.map((order, index) => (
+                  <div
+                    key={index}
+                    className="flex flex-col md:flex-row gap-5 justify-between p-5 border-b border-gray-300"
+                  >
+                    <div className="flex-1 flex gap-5 max-w-80">
+                      {order.products.map((item) => (
+                        <Image
+                          key={item.id}
+                          className="w-16 h-16 object-cover"
+                          src={getProductImage(item.id) || assets.box_icon} 
+                          alt="Product Image"
+                          width={64}
+                          height={64}
+                        />
+                      ))}
+                      <p className="flex flex-col gap-3">
+                        <span className="font-medium text-base">
+                          {order.products
+                            .map(
+                              (item) =>
+                                `${getProductName(item.id)} x ${item.quantity}`
+                            )
+                            .join(", ")}
+                        </span>
+                        <span>Items : {order.products.length}</span>
+                      </p>
+                    </div>
+                    <div>
+                      <p>
+                        <span className="font-medium">
+                          {order.address.fullName}
+                        </span>
+                        <br />
+                        <span>{order.address.area}</span>
+                        <br />
+                        <span>{`${order.address.city}, ${order.address.state}`}</span>
+                        <br />
+                        <span>{order.address.phoneNumber}</span>
+                      </p>
+                    </div>
+                    <p className="font-medium my-auto">
+                      {currency}
+                      {order.orderAmount}
+                    </p>
+                    <div>
+                      <p className="flex flex-col">
+                        <span>Method : COD</span>
+                        {console.log(order)}
+                        <span>
+  Date: {new Date(order.createdAt).toLocaleDateString()}
+</span>
+
+                        <span>Payment : Pending</span>
+                      </p>
+                    </div>
+                  </div>
+                ))}
             </div>
-            <Footer />
-        </>
-    );
+          )}
+        </div>
+      </div>
+      <Footer />
+    </>
+  );
 };
 
 export default MyOrders;

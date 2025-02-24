@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { assets, orderDummyData } from "@/assets/assets";
+import { assets, orderDummyData,productsDummyData } from "@/assets/assets";
 import Image from "next/image";
 
 import Footer from "@/components/Footer";
@@ -38,6 +38,19 @@ const MyOrders = () => {
     fetchOrders();
   }, []);
 
+  
+  const getProductName = (id) => {
+    const product = productsDummyData.find((p) => p._id === id);
+    return product ? product.name : "Unknown Product";
+};
+
+const getProductImage = (id) => {
+  const product = productsDummyData.find((p) => p._id === id);
+  return product?.image?.[0] || assets.box_icon;
+};
+
+
+
   return (
     <div className="flex-1 h-screen overflow-scroll flex flex-col justify-between text-sm">
       {loading ? (
@@ -52,18 +65,22 @@ const MyOrders = () => {
                 className="flex flex-col md:flex-row gap-5 justify-between p-5 border-t border-gray-300"
               >
                 <div className="flex-1 flex gap-5 max-w-80">
-                  <Image
-                    className="max-w-16 max-h-16 object-cover"
-                    src={assets.box_icon}
-                    alt="box_icon"
-                  />
+                {order.products.map((item) => (
+                        <Image
+                          key={item.id}
+                          className="w-16 h-16 object-cover"
+                          src={getProductImage(item.id) || assets.box_icon} 
+                          alt="Product Image"
+                          width={64}
+                          height={64}
+                        />
+                      ))}
                   <p className="flex flex-col gap-3">
                     <span className="font-medium">
-                      {order.products
-                        .map(
-                          (item) => item.id + ` x ${item.quantity}`
-                        )
-                        .join(", ")}
+                    {order.products.map(
+                                                        (item) =>
+                                                            `${getProductName(item.id)} x ${item.quantity}`
+                                                    ).join(", ")}
                     </span>
                     <span>Items : {order.products.length}</span>
                   </p>

@@ -6,12 +6,14 @@ import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import { useRouter } from "next/navigation";
 import { useAppStore } from "@/context/AppContext";
+import { useUserStore } from "@/Zustand/store";
 
 const Cart = () => {
   const router=useRouter()
   const {products,cartItems,addToCart,updateCartQuantity,getCartCount}=useAppStore()
   const [count, setCount] = useState(0); // Start with 0 to match SSR
   const [hydrate,setHydrate]=useState(false)
+  const { name, email, isAuthenticated, logout, role } = useUserStore();
   useEffect(() => {
     setCount(getCartCount()); // Update it on client-side
   }, [getCartCount]);
@@ -19,6 +21,12 @@ const Cart = () => {
   useEffect(()=>{
     setHydrate(true)
   },[])
+
+    useEffect(() => {
+      if (!isAuthenticated) {
+        router.push('/');
+      }
+    }, [isAuthenticated, router]);
 
   if(!hydrate) return null
   // const { products, router, cartItems, addToCart, updateCartQuantity, getCartCount } =  ();
@@ -113,9 +121,14 @@ const Cart = () => {
                   );
                 })}
                 {Object.keys(cartItems).length === 0 && (
+                    <tr>
+                    <td colSpan="100%">
                   <div className="border-t border-gray-500/20 flex items-center justify-start">
                     <p className="w-full  p-5"> ooops! cart is empty</p>
                   </div>
+                     
+                    </td>
+                  </tr>
                 )}
               </tbody>
 

@@ -47,6 +47,7 @@ const ProductList = () => {
 
   const fetchSellerProduct = async () => {
     const { data } = await axiosConfig.get("/api/orders/all?status=Out for Delivery");
+    console.log(data,'data')
     setProducts(data.orders);
     setLoading(false);
   };
@@ -121,9 +122,14 @@ const ProductList = () => {
                   </tr>
                 ))}
                 {products.length === 0 && (
-                  <div className="border-t border-gray-500/20 flex items-center justify-start">
-                  <p className="w-full  p-5"> ooops! you have no out for delivery orders</p>
-                </div>
+                                      <tr>
+                                      <td colSpan="100%">
+                                    <div className="border-t border-gray-500/20 flex items-center justify-start">
+                                      <p className="w-full  p-5"> ooops! you have no out for delivery orders</p>
+                                    </div>
+                                       
+                                      </td>
+                                    </tr>
                 )}
               </tbody>
             </table>

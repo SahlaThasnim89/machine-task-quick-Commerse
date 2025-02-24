@@ -86,7 +86,7 @@ const OrderSummary = () => {
       orderAmount: Math.floor(getCartAmount()),
     };
 
-    console.log(orderData, "ttutytutuytuytff");
+    // console.log(orderData, "ttutytutuytuytff");
 
     try {
       const response = await axiosConfig.post("/api/orders", orderData);
@@ -155,7 +155,7 @@ const OrderSummary = () => {
                   </li>
                 ))}
                 <li
-                  onClick={() => router.push("/add-address")}
+                  onClick={() => routes.push("/add-address")}
                   className="px-4 py-2 hover:bg-gray-500/10 cursor-pointer text-center"
                 >
                   + Add New Address

@@ -5,7 +5,6 @@ import Image from "next/image";
  
 import Footer from "@/components/seller/Footer";
 import Loading from "@/components/Loading";
-import { Card, CardContent, Typography, Avatar, Box } from "@mui/material";
 import axiosConfig from "@/utils/axiosConfig";
 import { useUserStore } from "@/Zustand/store";
 import { useAppStore } from "@/context/AppContext";
@@ -25,7 +24,7 @@ const Profile = () => {
         const fetchUser = async () => {
           try {
             const res = await axiosConfig.get("/api/auth/user");
-            console.log(res.data.user,'ioioi')
+            // console.log(res.data.user,'ioioi')
             if (!res.data) throw new Error("Failed to fetch user");
             setUser(res.data.user);
           } catch (error) {

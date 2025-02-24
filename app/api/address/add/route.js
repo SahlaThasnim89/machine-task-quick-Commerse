@@ -7,9 +7,11 @@ import { NextResponse } from "next/server";
 
 export async function POST(request) {
     try {
+        console.log
         await connectDB();
-
+console.log('ioioi')
         const session = await getServerSession(authOptions);
+        console.log(session,'uiyiuy')
 
         if (!session) {
             return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 });

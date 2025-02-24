@@ -2,7 +2,9 @@
 import { create } from "zustand";
 import { productsDummyData, userDummyData } from "@/assets/assets";
 import { persist } from "zustand/middleware";
+import { useUserStore } from "@/Zustand/store";
 import toast from "react-hot-toast";
+
 
 export const useAppStore = create(
   persist(
@@ -12,7 +14,7 @@ export const useAppStore = create(
       userData: null,
       products: productsDummyData,
       cartItems: {},
-      //   count: 0,
+      count: 0,
       setIsSeller: (isSeller) => set({ isSeller }),
 
       fetchUserData: async () => {
@@ -24,16 +26,19 @@ export const useAppStore = create(
       },
 
       addToCart: (itemId) => {
-        if (userData.role == "delivery")
+        const userData = get().userData;
+        if (userData?.role == "delivery")
           return toast.error("please login as customer to make and order");
         toast.success("product added successfully");
         const cartData = { ...get().cartItems };
         cartData[itemId] = (cartData[itemId] || 0) + 1;
-        set({ cartItems: cartData, count: count + 1 });
+        const currentCount = get().count; // ✅ Get the current count before updating
+        set({ cartItems: cartData, count: currentCount + 1 }); 
       },
 
       updateCartQuantity: (itemId, quantity) => {
-        if (userData.role == "delivery")
+        const userData = get().userData;
+        if (userData?.role == "delivery")
           return toast.error("please login as customer to make and order");
         toast.success("product quantity updated successfully");
         const cartData = { ...get().cartItems };

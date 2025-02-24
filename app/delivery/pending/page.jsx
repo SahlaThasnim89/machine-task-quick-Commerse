@@ -121,9 +121,15 @@ const ProductList = () => {
                   </tr>
                 ))}
                 {products.length === 0 && (
-                  <tr className="border-t border-gray-500/20 flex items-center justify-start">
-                    <td className="w-full  p-5"> ooops! no pending orders</td>
-                  </tr>
+                                      <tr>
+                                      <td colSpan="100%">
+                                    <div className="border-t border-gray-500/20 flex items-center justify-start">
+                                      <p className="w-full  p-5"> ooops! no pending orders
+                                      </p>
+                                    </div>
+                                       
+                                      </td>
+                                    </tr>
                 )}
               </tbody>
             </table>

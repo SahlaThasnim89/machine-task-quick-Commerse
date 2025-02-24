@@ -52,20 +52,23 @@ const SignUp = () => {
       console.log(updatedForm)
       try {
         const res = await axiosConfig.post("/api/auth/signup", updatedForm);
-        console.log("Response:", res.data.user);
         login(res.data.user);
-        console.log('login')
         router.push("/");
-        console.log('push')
         toast.success(res.data.message || "Signup successful!");
-        console.log('why dont redirect')
       } catch (error) {
-        console.log("Signup Error:", error);
-    
+
+        setPending(false);  
+
         if (error.response && error.response.data) {
-          toast.error(error.response.data.message || "Something went wrong!");
+            const errorMessage = error.response.data.message || "Something went wrong!";
+            toast.error(errorMessage);
+
+            // If the error is about email already existing, set it in state
+            if (errorMessage.toLowerCase().includes("email already exists")) {
+                setErrors({ ...errors, email: errorMessage });
+            }
         } else {
-          toast.error("Network error. Please try again.");
+            toast.error("Network error. Please try again.");
         }
       }
     }
@@ -80,9 +83,12 @@ const SignUp = () => {
             type="text"
             placeholder="Full name"
             disabled={pending}
-            onChange={(e) =>
-              setForm({ ...form, name: e.target.value })
-            }
+            onChange={(e) => {
+              setForm({ ...form, name: e.target.value }); 
+              if (errors.name) {
+                setErrors({ ...errors, name: "" });  // Reset error when user types
+              }
+            }}
             value={form.name}
             required
           />
@@ -93,9 +99,12 @@ const SignUp = () => {
             type="email"
             disabled={pending}
             placeholder="Email"
-            onChange={(e) =>
-              setForm({ ...form, email: e.target.value })
-            }
+            onChange={(e) => {
+              setForm({ ...form, email: e.target.value });
+              if (errors.email) {
+                setErrors({ ...errors, email: "" });  // Reset error when user types
+              }
+            }}
             value={form.email}
             required
           />
@@ -105,9 +114,14 @@ const SignUp = () => {
             type="password"
             disabled={pending}
             placeholder="Password"
-            onChange={(e) =>
-              setForm({ ...form, password: e.target.value })
-            }
+            onChange={(e) => {
+              setForm({ ...form, password: e.target.value }); 
+              if (errors.password) {
+                setErrors({ ...errors, password: "" });  // Reset error when user types
+              }
+            }}
+            
+            
             value={form.password}
             required
           />
@@ -117,12 +131,15 @@ const SignUp = () => {
             type="password"
             disabled={pending}
             placeholder="Confirm Password"
-            onChange={(e) =>
+            onChange={(e) => {
               setForm({
                 ...form,
                 confirmPassword: e.target.value,
-              })
-            }
+              });
+              if (errors.confirmPassword) {
+                setErrors({ ...errors, confirmPassword: "" }); // Reset error when user types
+              }
+            }}
             value={form.confirmPassword}
             required
           />
