@@ -257,6 +257,9 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { FaLocationCrosshairs } from "react-icons/fa6";
 import MapPicker from "@/components/MapPicker";
+import { useUserStore } from "@/Zustand/store";
+
+
 
 const AddAddress = () => {
     const { data: session } = useSession(); 
@@ -275,12 +278,13 @@ const AddAddress = () => {
     const [errors, setErrors] = useState({});
     const [location, setLocation] = useState("");
     const [mapOpen, setMapOpen] = useState(false);
+    const user=useUserStore()
 
-    // useEffect(() => {
-    //     if (!session) {
-    //         router.push('/login'); 
-    //     }
-    // }, [session, router]);
+    useEffect(() => {
+        if (!user) {
+            router.push('/sign-In'); 
+        }
+    }, [user, router]);
 
     const handleSelectLocation = async (pos) => {
         setLocation(`Lat: ${pos.lat}, Lng: ${pos.lng}`);
