@@ -276,11 +276,11 @@ const AddAddress = () => {
     const [location, setLocation] = useState("");
     const [mapOpen, setMapOpen] = useState(false);
 
-    useEffect(() => {
-        if (!session) {
-            router.push('/login'); 
-        }
-    }, [session, router]);
+    // useEffect(() => {
+    //     if (!session) {
+    //         router.push('/login'); 
+    //     }
+    // }, [session, router]);
 
     const handleSelectLocation = async (pos) => {
         setLocation(`Lat: ${pos.lat}, Lng: ${pos.lng}`);
