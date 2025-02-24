@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { GoogleMap, Marker, LoadScript } from "@react-google-maps/api";
+import { GoogleMap, Marker, useLoadScript  } from "@react-google-maps/api";
 
 const containerStyle = {
   width: "100%",
@@ -15,6 +15,10 @@ const center = {
 
 const MapPicker = ({ isOpen, onClose, onSelectLocation }) => {
   const [markerPosition, setMarkerPosition] = useState(center);
+
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
+  });
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -36,6 +40,8 @@ const MapPicker = ({ isOpen, onClose, onSelectLocation }) => {
       lng: event.latLng.lng(),
     });
   };
+
+  if (!isLoaded) return <p>Loading...</p>;
 
   return (
     isOpen && (
