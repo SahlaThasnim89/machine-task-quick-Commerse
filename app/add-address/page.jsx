@@ -33,12 +33,48 @@ const AddAddress = () => {
     const [location, setLocation] = useState("");
     const [mapOpen, setMapOpen] = useState(false);
 
+    
+
+    // const handleSelectLocation = async (pos) => {
+    //     setLocation(`Lat: ${pos.lat}, Lng: ${pos.lng}`);
+    //     setMapOpen(false);
+    
+    //     try {
+    //         const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY; 
+    //         const res = await axiosConfig.get(
+    //             `https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.lng}&key=${apiKey}`
+    //         );
+    
+    //         if (res.data.status === "OK" && res.data.results.length > 0) {
+    //             const addressComponents = res.data.results[0].address_components;
+    
+    //             const getComponent = (type) => addressComponents.find((c) => c.types.includes(type))?.long_name || "";
+    
+    //             setAddress({
+    //                 fullName: address.fullName, // Preserve entered name
+    //                 phoneNumber: address.phoneNumber, // Preserve entered phone
+    //                 zipCode: getComponent("postal_code"),
+    //                 street: getComponent("route") + " " + getComponent("street_number"),
+    //                 city: getComponent("locality"),
+    //                 state: getComponent("administrative_area_level_1"),
+    //                 country: getComponent("country"),
+    //             });
+    //         } else {
+    //             toast.error("Failed to fetch address.");
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //         toast.error("Error fetching address.");
+    //     }
+    // };
+
+
     const handleSelectLocation = async (pos) => {
         setLocation(`Lat: ${pos.lat}, Lng: ${pos.lng}`);
         setMapOpen(false);
     
         try {
-            const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY; 
+            const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
             const res = await axiosConfig.get(
                 `https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.lng}&key=${apiKey}`
             );
@@ -48,15 +84,15 @@ const AddAddress = () => {
     
                 const getComponent = (type) => addressComponents.find((c) => c.types.includes(type))?.long_name || "";
     
-                setAddress({
-                    fullName: address.fullName, // Preserve entered name
-                    phoneNumber: address.phoneNumber, // Preserve entered phone
-                    zipCode: getComponent("postal_code"),
-                    street: getComponent("route") + " " + getComponent("street_number"),
-                    city: getComponent("locality"),
-                    state: getComponent("administrative_area_level_1"),
-                    country: getComponent("country"),
-                });
+                setAddress((prev) => ({
+                    fullName: prev.fullName, 
+                    phoneNumber: prev.phoneNumber,
+                    zipCode: prev.zipCode || getComponent("postal_code"),
+                    street: prev.street || (getComponent("route") + " " + getComponent("street_number")).trim(),
+                    city: prev.city || getComponent("locality"),
+                    state: prev.state || getComponent("administrative_area_level_1"),
+                    country: prev.country || getComponent("country"),
+                }));
             } else {
                 toast.error("Failed to fetch address.");
             }
@@ -66,38 +102,92 @@ const AddAddress = () => {
         }
     };
 
+    
+
+    // const validateForm = () => {
+    //     let newErrors = {};
+
+    //     if (!address.fullName.trim()) newErrors.fullName = "Full name is required.";
+    //     if (!address.phoneNumber.trim()) newErrors.phoneNumber = "Phone number is required.";
+    //     else if (!/^\d{10}$/.test(address.phoneNumber)) newErrors.phoneNumber = "Enter a valid 10-digit phone number.";
+
+    //     if (!address.zipCode.trim()) newErrors.zipCode = "Zip code is required.";
+    //     else if (!/^\d+$/.test(address.zipCode)) newErrors.zipCode = "Zip code must be numbers only.";
+
+    //     if (!address.street.trim()) newErrors.street = "Street address is required.";
+    //     if (!address.city.trim()) newErrors.city = "City is required.";
+    //     if (!address.state.trim()) newErrors.state = "State is required.";
+    //     if (!address.country.trim()) newErrors.country = "Country is required.";
+
+    //     setErrors(newErrors);
+    //     return Object.keys(newErrors).length === 0;
+    // };
     const validateForm = () => {
         let newErrors = {};
-
+    
         if (!address.fullName.trim()) newErrors.fullName = "Full name is required.";
         if (!address.phoneNumber.trim()) newErrors.phoneNumber = "Phone number is required.";
         else if (!/^\d{10}$/.test(address.phoneNumber)) newErrors.phoneNumber = "Enter a valid 10-digit phone number.";
-
+    
         if (!address.zipCode.trim()) newErrors.zipCode = "Zip code is required.";
         else if (!/^\d+$/.test(address.zipCode)) newErrors.zipCode = "Zip code must be numbers only.";
-
+    
         if (!address.street.trim()) newErrors.street = "Street address is required.";
         if (!address.city.trim()) newErrors.city = "City is required.";
         if (!address.state.trim()) newErrors.state = "State is required.";
         if (!address.country.trim()) newErrors.country = "Country is required.";
-
+    
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
     
 
+    // const onSubmitHandler = async (e) => {
+    //     e.preventDefault();
+    //     // console.log(address)
+    //     if(!session){
+    //         return;
+    //     }
+    //     if (!validateForm()) return;
+    //     try {
+    //         const res = await axiosConfig.post("/api/address/add", address);
+
+    //         if (res.data) {
+    //             toast("Address added successfully!");
+    //             setAddress({
+    //                 fullName: '',
+    //                 phoneNumber: '',
+    //                 zipCode: '',
+    //                 street: '',
+    //                 city: '',
+    //                 state: '',
+    //                 country: '',
+    //             });
+    //             setErrors({});
+    //             router.push('/cart')
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //         toast("Failed to add address.");
+    //     }
+    // }
     const onSubmitHandler = async (e) => {
         e.preventDefault();
-        // console.log(address)
-        if(!session){
+    
+        if (!session) {
             return;
         }
-        if (!validateForm()) return;
+    
+        if (!validateForm()) {
+            toast.error("Please fill all required fields.");
+            return;
+        }
+    
         try {
             const res = await axiosConfig.post("/api/address/add", address);
-
+    
             if (res.data) {
-                toast("Address added successfully!");
+                toast.success("Address added successfully!");
                 setAddress({
                     fullName: '',
                     phoneNumber: '',
@@ -108,13 +198,14 @@ const AddAddress = () => {
                     country: '',
                 });
                 setErrors({});
-                router.push('/cart')
+                router.push('/cart');
             }
         } catch (error) {
             console.log(error);
-            toast("Failed to add address.");
+            toast.error("Failed to add address.");
         }
-    }
+    };
+    
 
     return (
         <>

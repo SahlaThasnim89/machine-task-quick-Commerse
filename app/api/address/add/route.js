@@ -7,9 +7,9 @@ import { NextResponse } from "next/server";
 
 export async function POST(request) {
     try {
-        console.log
+        console.log('ghjgjh')
         await connectDB();
-console.log('ioioi')
+            console.log('ioioi')
         const session = await getServerSession(authOptions);
         console.log(session,'uiyiuy')
 
