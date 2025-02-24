@@ -69,38 +69,7 @@ const AddAddress = () => {
     // };
 
 
-    const handleSelectLocation = async (pos) => {
-        setLocation(`Lat: ${pos.lat}, Lng: ${pos.lng}`);
-        setMapOpen(false);
-    
-        try {
-            const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-            const res = await axiosConfig.get(
-                `https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.lng}&key=${apiKey}`
-            );
-    
-            if (res.data.status === "OK" && res.data.results.length > 0) {
-                const addressComponents = res.data.results[0].address_components;
-    
-                const getComponent = (type) => addressComponents.find((c) => c.types.includes(type))?.long_name || "";
-    
-                setAddress((prev) => ({
-                    fullName: prev.fullName, 
-                    phoneNumber: prev.phoneNumber,
-                    zipCode: prev.zipCode || getComponent("postal_code"),
-                    street: prev.street || (getComponent("route") + " " + getComponent("street_number")).trim(),
-                    city: prev.city || getComponent("locality"),
-                    state: prev.state || getComponent("administrative_area_level_1"),
-                    country: prev.country || getComponent("country"),
-                }));
-            } else {
-                toast.error("Failed to fetch address.");
-            }
-        } catch (error) {
-            console.log(error);
-            toast.error("Error fetching address.");
-        }
-    };
+ 
 
     
 
@@ -122,24 +91,7 @@ const AddAddress = () => {
     //     setErrors(newErrors);
     //     return Object.keys(newErrors).length === 0;
     // };
-    const validateForm = () => {
-        let newErrors = {};
-    
-        if (!address.fullName.trim()) newErrors.fullName = "Full name is required.";
-        if (!address.phoneNumber.trim()) newErrors.phoneNumber = "Phone number is required.";
-        else if (!/^\d{10}$/.test(address.phoneNumber)) newErrors.phoneNumber = "Enter a valid 10-digit phone number.";
-    
-        if (!address.zipCode.trim()) newErrors.zipCode = "Zip code is required.";
-        else if (!/^\d+$/.test(address.zipCode)) newErrors.zipCode = "Zip code must be numbers only.";
-    
-        if (!address.street.trim()) newErrors.street = "Street address is required.";
-        if (!address.city.trim()) newErrors.city = "City is required.";
-        if (!address.state.trim()) newErrors.state = "State is required.";
-        if (!address.country.trim()) newErrors.country = "Country is required.";
-    
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
-    };
+
     
 
     // const onSubmitHandler = async (e) => {
@@ -183,6 +135,7 @@ const AddAddress = () => {
             return;
         }
     
+        console.log(address,'uiiyiu')
         try {
             const res = await axiosConfig.post("/api/address/add", address);
     
