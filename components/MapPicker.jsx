@@ -48,7 +48,7 @@ const MapPicker = ({ isOpen, onClose, onSelectLocation }) => {
       <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center z-50">
         <div className="bg-white p-4 rounded-lg w-[90%] max-w-lg">
           <h2 className="text-lg font-semibold mb-3">Select Delivery Location</h2>
-          <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
+          {/* <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}> */}
             <GoogleMap
               mapContainerStyle={containerStyle}
               center={markerPosition}
@@ -57,7 +57,7 @@ const MapPicker = ({ isOpen, onClose, onSelectLocation }) => {
             >
               <Marker position={markerPosition} />
             </GoogleMap>
-          </LoadScript>
+          {/* </LoadScript> */}
           <div className="mt-4 flex justify-end gap-2">
             <button
               className="bg-gray-500 text-white px-4 py-2 rounded"
