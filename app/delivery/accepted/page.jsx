@@ -98,19 +98,10 @@ const ProductList = () => {
                   <tr key={index} className="border-t border-gray-500/20">
                     <td className="md:px-4  py-3 ">
                       <h1>{index + 1}</h1>
-                      {/* <div className="bg-gray-500/10 rounded p-2"> */}
 
-                      {/* <Image
-                          src={product.image[0]}
-                          alt="product Image"
-                          className="w-16"
-                          width={1280}
-                          height={720}
-                        /> */}
-                      {/* </div> */}
                     </td>
                     <td className="px-4 py-3 max-sm:hidden">
-                      {product.customerId.name}
+                      {product.customerId?.name}
                     </td>
                     <td className="px-4 py-3">${product.orderAmount}</td>
                     <td className="px-4 py-3">{product.quantity}</td>
