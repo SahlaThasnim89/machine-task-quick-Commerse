@@ -44,8 +44,11 @@ export async function POST(request) {
 
 export async function GET(req) {
   try {
+    console.log(req.url)
     const { searchParams } = new URL(req.url);
+    console.log(searchParams,'uiyuyu')
     const status = searchParams.get("status");
+    console.log(status,'rtyrty')
     const newStatus = !status ? { $ne: "Delivered" } : status;
     await connectDB();
     const session = await getServerSession(authOptions);
@@ -59,7 +62,7 @@ export async function GET(req) {
     const user = await User.findOne({ email: session.user.email }).select(
       "-password"
     );
-    // console.log(user);
+    console.log(user);
     if (!user) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
