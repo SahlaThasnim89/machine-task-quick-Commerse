@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { useAppStore } from '@/context/AppContext';
 import { useRouter } from 'next/navigation';
 import { useUserStore } from '@/Zustand/store';
+import toast from "react-hot-toast";
+
  
 
 const ProductCard = ({ product }) => {
