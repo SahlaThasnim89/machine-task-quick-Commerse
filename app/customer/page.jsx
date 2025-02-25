@@ -56,7 +56,7 @@ const Profile = () => {
           {user?.name||haveUser.name}
         </h2>
         <p className="max-w-[343px] font-semibold text-gray-800/60 my-10 text-xl">
-          {user?.email||haveUser.name}
+          {user?.email||haveUser.email}
         </p>
       
       <button onClick={() => { router.push('/all-products') }} className="px-12 py-2.5 border rounded bg-slate-50/90 text-gray-500/70 hover:bg-slate-70/90 transition">

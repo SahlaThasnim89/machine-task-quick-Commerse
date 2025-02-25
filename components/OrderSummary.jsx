@@ -8,14 +8,12 @@ import { useUserStore } from "@/Zustand/store";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useAppStore } from "@/context/AppContext";
-// import { useCartStore } from "@/Zustand/cartStore";
 
 
 
 
 const OrderSummary = () => {
   const router = useRouter();
-  // const {clearCart}=useCartStore()
 
   const user = useUserStore();
 
