@@ -8,11 +8,14 @@ import { useUserStore } from "@/Zustand/store";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useAppStore } from "@/context/AppContext";
+import { useCartStore } from "@/Zustand/cartStore";
+
 
 
 
 const OrderSummary = () => {
   const router = useRouter();
+  const {clearCart}=useCartStore()
 
   const user = useUserStore();
 
@@ -95,6 +98,7 @@ const OrderSummary = () => {
       const response = await axiosConfig.post("/api/orders", orderData);
       // console.log("Order placed successfully:", response.data);
       router.push("/order-placed");
+      clearCart()
     } catch (error) {
       console.log("Failed to place order", error);
       setError("Failed to place order. Please try again.");
