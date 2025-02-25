@@ -55,7 +55,7 @@ export const useAppStore = create(
     
       if (itemId === "clearCart") {
         set({ cartItems: {} });
-        toast.success("Cart cleared after order placement");
+        // toast.success("Cart cleared after order placement");
         return;
       }
     
