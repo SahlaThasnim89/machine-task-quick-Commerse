@@ -20,7 +20,7 @@ const ProductCard = ({ product }) => {
         onClick={() => {
             if (!isAuthenticated) {
               router.push("/sign-In");
-            } else if (user?.role === "delivery") {
+            } else if (role === "delivery") {
               toast.error("Delivery agents cannot purchase items. Please log in as a customer.");
               router.push("/sign-In");
             } else {
