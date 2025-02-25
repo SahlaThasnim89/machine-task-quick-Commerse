@@ -45,7 +45,6 @@ const Navbar = () => {
     toast.success("Logged out successfully");
   }
 
-  const user=useUserStore()
 
 
 
@@ -69,7 +68,6 @@ const Navbar = () => {
         </Link>
  
 
-        {/* {role=== "delivery" && <button onClick={() => router.push('/delivery')} className="text-xs border px-4 py-1.5 rounded-full">Delivery Dashboard</button>} */}
 
       </div>
 
@@ -80,7 +78,7 @@ const Navbar = () => {
         <Image className="w-4 h-4" src={assets.search_icon} alt="search icon" />
         <button className="flex items-center gap-2 hover:text-gray-900 transition" onClick={handleClick}>
           <Image src={assets.user_icon} alt="user icon" />
-          Account
+          {isAuthenticated ? "Account" : "Login"}
         </button>
 
         {isAuthenticated && (role === "customer" ? (

@@ -3,11 +3,15 @@ import React from "react";
 import ProductCard from "./ProductCard";
 import { useAppStore } from "@/context/AppContext";
 import {useRouter} from "next/navigation";
+import { useUserStore } from "@/Zustand/store";
+
  
 
 const HomeProducts = () => {
   const router=useRouter()
   const { products } =  useAppStore()
+  const { isAuthenticated } = useUserStore();
+  
 
   return (
     <div className="flex flex-col items-center pt-14">
