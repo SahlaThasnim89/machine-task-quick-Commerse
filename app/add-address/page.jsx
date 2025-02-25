@@ -98,6 +98,7 @@ const AddAddress = () => {
         e.preventDefault();
 
         if (!session||!user) {
+            console.log(session,'ghjhj')
             toast.error("You must be logged in to add an address.");
             return;
         }
