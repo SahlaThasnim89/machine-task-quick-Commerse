@@ -3,7 +3,8 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import { useUserStore } from "@/store/userStore"; // Adjust the import path
+import { useUserStore } from "@/Zustand/store";
+
 
 const AuthChecker = () => {
     const { isAuthenticated } = useUserStore();
