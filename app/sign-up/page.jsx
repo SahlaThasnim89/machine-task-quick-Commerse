@@ -2,7 +2,7 @@
 import axiosConfig from "@/utils/axiosConfig";
 import { useUserStore } from "@/Zustand/store";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
