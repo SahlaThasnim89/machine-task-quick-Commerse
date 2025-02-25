@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import toast from "react-hot-toast";
 
 
+
 const authRouter = ["/sign-In", "/sign-up"];
 const protectedRoutes = ["/", "/"]; // Define protected routes
 
