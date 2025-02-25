@@ -68,8 +68,8 @@ const SignUp = () => {
         updateCartQuantity("clearCart", 0);
         await signIn("credentials", {
           redirect: false,
-          email: userData.email,
-          password: userData.password,
+          email: updatedForm.email,
+          password: updatedForm.password,
         });
         toast.success(res.data.message || "Signup successful!");
       } catch (error) {
