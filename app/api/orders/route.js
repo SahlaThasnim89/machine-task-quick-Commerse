@@ -42,27 +42,64 @@ export async function POST(request) {
   }
 }
 
+// export async function GET(req) {
+//   try {
+//     console.log(req.url)
+//     const { searchParams } = new URL(req.url);
+//     console.log(searchParams,'uiyuyu')
+//     const status = searchParams.get("status");
+//     console.log(status,'rtyrty')
+//     const newStatus = !status ? { $ne: "Delivered" } : status;
+//     await connectDB();
+//     const session = await getServerSession(authOptions);
+//     if (!session || !session.user) {
+//       return NextResponse.json(
+//         { message: "Not authenticated" },
+//         { status: 401 }
+//       );
+//     }
+
+//     const user = await User.findOne({ email: session.user.email }).select(
+//       "-password"
+//     );
+//     console.log(user);
+//     if (!user) {
+//       return NextResponse.json({ message: "User not found" }, { status: 404 });
+//     }
+
+//     const pendingOrders = await Order.find({
+//       customerId: user._id,
+//       status: newStatus,
+//     });
+//     console.log(pendingOrders, "iuuyyu");
+
+//     return NextResponse.json({ orders: pendingOrders }, { status: 200 });
+//   } catch (error) {
+//     console.log("Order creation failed:", error);
+//     return NextResponse.json(
+//       { message: "Internal Server Error" },
+//       { status: 500 }
+//     );
+//   }
+// }
 export async function GET(req) {
   try {
-    console.log(req.url)
-    const { searchParams } = new URL(req.url);
-    console.log(searchParams,'uiyuyu')
-    const status = searchParams.get("status");
-    console.log(status,'rtyrty')
-    const newStatus = !status ? { $ne: "Delivered" } : status;
+    console.log(req.url);
+    const url = new URL(req.url, "http://localhost"); // Ensure a base URL is added
+    const status = url.searchParams.get("status");
+    console.log("Extracted Status:", status); // Check if status is being received
+
+    const newStatus = status ? status : { $ne: "Delivered" };
     await connectDB();
+
     const session = await getServerSession(authOptions);
     if (!session || !session.user) {
-      return NextResponse.json(
-        { message: "Not authenticated" },
-        { status: 401 }
-      );
+      return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
     }
 
-    const user = await User.findOne({ email: session.user.email }).select(
-      "-password"
-    );
-    console.log(user);
+    const user = await User.findOne({ email: session.user.email }).select("-password");
+    console.log("User found:", user);
+
     if (!user) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
@@ -71,17 +108,15 @@ export async function GET(req) {
       customerId: user._id,
       status: newStatus,
     });
-    console.log(pendingOrders, "iuuyyu");
 
+    console.log("Fetched Orders:", pendingOrders);
     return NextResponse.json({ orders: pendingOrders }, { status: 200 });
   } catch (error) {
-    console.log("Order creation failed:", error);
-    return NextResponse.json(
-      { message: "Internal Server Error" },
-      { status: 500 }
-    );
+    console.log("Order fetching failed:", error);
+    return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
   }
 }
+
 
 export async function PUT(req) {
   try {
