@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useAppStore } from "@/context/AppContext";
-
+import { signIn } from "next-auth/react";
 
 
 
@@ -35,7 +35,6 @@ const SignUp = () => {
   const [errors, setErrors] = useState({});
   const [pending,setPending]=useState(false)
   const [isDeliveryPartner, setIsDeliveryPartner] = useState(false);
-  const [session, setSession] = useState(true);
 
   const validateForm = () => {
     let newErrors = {};
@@ -64,10 +63,14 @@ const SignUp = () => {
       console.log(updatedForm)
       try {
         const res = await axiosConfig.post("/api/auth/signup", updatedForm);
-        setSession(true);
         login(res.data.user);
         router.push("/");
         updateCartQuantity("clearCart", 0);
+        await signIn("credentials", {
+          redirect: false,
+          email: userData.email,
+          password: userData.password,
+        });
         toast.success(res.data.message || "Signup successful!");
       } catch (error) {
         console.log("Signup Error:", error);
