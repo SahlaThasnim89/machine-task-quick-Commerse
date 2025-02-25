@@ -21,6 +21,13 @@ const Navbar = () => {
   console.log(isAuthenticated,'isAuthenticated')
   const routes = useRouter();
   const {data:session,status}=useSession()
+
+  
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push("/"); 
+    }
+  }, [isAuthenticated, router]);
   
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
