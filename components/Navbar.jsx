@@ -24,7 +24,7 @@ const Navbar = () => {
 
   
   useEffect(() => {
-    if (isAuthenticated) {
+    if (!isAuthenticated) {
       router.push("/"); 
     }
   }, [isAuthenticated, router]);
