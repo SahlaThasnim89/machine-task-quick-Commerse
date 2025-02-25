@@ -50,13 +50,12 @@ const MyOrders = () => {
     return product?.image?.[0] || assets.box_icon;
   };
 
-  console.log(orders)
 
   return (
     <div className="flex-1 h-screen overflow-scroll flex flex-col justify-between text-sm">
       {loading ? (
         <Loading />
-      ) : orders.length === 0 ? (
+      ) : orders?.length === 0 ? (
         <div className="flex flex-col items-center justify-center h-full">
           <Image
             src={assets.box_icon}
@@ -70,13 +69,13 @@ const MyOrders = () => {
         <div className="md:p-10 p-4 space-y-5">
           <h2 className="text-lg font-medium">Orders</h2>
           <div className="max-w-4xl rounded-md">
-            {orders.map((order, index) => (
+            {orders?.map((order, index) => (
               <div
                 key={index}
                 className="flex flex-col md:flex-row gap-5 justify-between p-5 border-t border-gray-300"
               >
                 <div className="flex-1 flex gap-5 max-w-80">
-                {order.products.map((item) => (
+                {order?.products?.map((item) => (
                                      <Image
                                        key={item.id}
                                        className="w-16 h-16 object-cover"
@@ -88,14 +87,14 @@ const MyOrders = () => {
                                    ))}
                   <p className="flex flex-col gap-3">
                     <span className="font-medium">
-                    {order.products
+                    {order?.products
                         .map(
                           (item) =>
                             `${getProductName(item.id)} x ${item.quantity}`
                         )
                         .join(", ")}
                     </span>
-                    <span>Items : {order.products.length}</span>
+                    <span>Items : {order?.products?.length}</span>
                     {order?.deliveryPartnerId && <span>Delivery by: {order?.deliveryPartnerId?.name}</span>}    
                   </p>
                 </div>
