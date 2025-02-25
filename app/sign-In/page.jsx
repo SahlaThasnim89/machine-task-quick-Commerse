@@ -9,10 +9,19 @@ import axiosConfig from "@/utils/axiosConfig";
 
 
 
+
 const SignIn = () => {
 
+  const {isAuthenticated,login}=useUserStore()
   const router=useRouter()
-  const { login } = useUserStore();
+
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push("/"); 
+    }
+  }, [isAuthenticated, router]);
+
 
   const [form,setForm]=useState({
     email: "",

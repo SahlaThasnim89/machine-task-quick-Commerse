@@ -11,8 +11,16 @@ import { useRouter } from "next/navigation";
 
 const SignUp = () => {
 
-  const { login } = useUserStore();
+  const { login,isAuthenticated } = useUserStore();
   const router = useRouter();
+
+
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push("/"); 
+    }
+  }, [isAuthenticated, router]);
 
   const [form,setForm]=useState({
     name: "",
@@ -53,13 +61,13 @@ const SignUp = () => {
       console.log(updatedForm)
       try {
         const res = await axiosConfig.post("/api/auth/signup", updatedForm);
-        console.log("Response:", res.data.user);
+        // console.log("Response:", res.data.user);
         login(res.data.user);
-        console.log('login')
+        // console.log('login')
         router.push("/");
-        console.log('push')
+        // console.log('push')
         toast.success(res.data.message || "Signup successful!");
-        console.log('why dont redirect')
+        // console.log('why dont redirect')
       } catch (error) {
         console.log("Signup Error:", error);
     
