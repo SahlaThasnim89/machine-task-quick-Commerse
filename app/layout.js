@@ -4,7 +4,6 @@ import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "./Providers";
 import ReactQueryProvider from "@/utils/reactQuery";
 import { SocketProvider } from "@/context/socketProvider";
-import AuthChecker from "@/utils/checkUser";
 
 
 
@@ -26,7 +25,6 @@ export default function RootLayout({ children }) {
           {/* <AppContextProvider> */}
             <ReactQueryProvider>
             <SocketProvider>
-            <AuthChecker /> 
             {children}
             </SocketProvider>
             </ReactQueryProvider>
