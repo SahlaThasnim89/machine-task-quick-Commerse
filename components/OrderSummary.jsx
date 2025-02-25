@@ -8,18 +8,18 @@ import { useUserStore } from "@/Zustand/store";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useAppStore } from "@/context/AppContext";
-import { useCartStore } from "@/Zustand/cartStore";
+// import { useCartStore } from "@/Zustand/cartStore";
 
 
 
 
 const OrderSummary = () => {
   const router = useRouter();
-  const {clearCart}=useCartStore()
+  // const {clearCart}=useCartStore()
 
   const user = useUserStore();
 
-  const { currency, getCartCount, getCartAmount, cartItems  } =
+  const { currency, getCartCount, getCartAmount, cartItems ,updateCartQuantity } =
     useAppStore();
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -98,7 +98,8 @@ const OrderSummary = () => {
       const response = await axiosConfig.post("/api/orders", orderData);
       // console.log("Order placed successfully:", response.data);
       router.push("/order-placed");
-      clearCart()
+      updateCartQuantity("clearCart", 0);
+      // clearCart()
     } catch (error) {
       console.log("Failed to place order", error);
       setError("Failed to place order. Please try again.");

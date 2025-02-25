@@ -33,18 +33,42 @@ export const useAppStore = create(
         set({ cartItems: cartData });
       },
 
-      updateCartQuantity: (itemId, quantity) => {
-    if (get().userData?.role === "delivery") {
+    //   updateCartQuantity: (itemId, quantity) => {
+    // if (get().userData?.role === "delivery") {
+    //     return toast.error("Please login as a customer to make an order");
+    // }        toast.success("product quantity updated successfully");
+    //     const cartData = { ...get().cartItems };
+    //     if (quantity === 0) {
+    //       delete cartData[itemId];
+    //     } else {
+    //       cartData[itemId] = quantity;
+    //     }
+    //     set({ cartItems: cartData });
+    //   },
+
+    updateCartQuantity: (itemId, quantity) => {
+      if (get().userData?.role === "delivery") {
         return toast.error("Please login as a customer to make an order");
-    }        toast.success("product quantity updated successfully");
-        const cartData = { ...get().cartItems };
-        if (quantity === 0) {
-          delete cartData[itemId];
-        } else {
-          cartData[itemId] = quantity;
-        }
-        set({ cartItems: cartData });
-      },
+      }
+      
+      const cartData = { ...get().cartItems };
+    
+      if (itemId === "clearCart") {
+        set({ cartItems: {} });
+        toast.success("Cart cleared after order placement");
+        return;
+      }
+    
+      if (quantity === 0) {
+        delete cartData[itemId];
+      } else {
+        cartData[itemId] = quantity;
+      }
+      
+      set({ cartItems: cartData });
+      toast.success("Product quantity updated successfully");
+    },
+    
 
       getCartCount: () => {
         return Object.values(get().cartItems).reduce(
