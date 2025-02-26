@@ -19,7 +19,8 @@ const MyOrders = () => {
     try {
       setLoading(true);
 
-      const response = await axiosConfig.get("/api/orders");
+      // const response = await axiosConfig.get("/api/orders");
+      const response = await axiosConfig.get(`${process.env.NEXT_PUBLIC_API_URL}/api/orders`);
       console.log(response);
 
       if (!response.data) {

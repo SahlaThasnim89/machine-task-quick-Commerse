@@ -46,8 +46,7 @@ const MyOrders = () => {
                 <div className="space-y-5">
                     <h2 className="text-lg font-medium mt-6">My Orders</h2>
                     {loading ? <Loading /> : (<div className="max-w-5xl border-t border-gray-300 text-sm">
-                        {orders.length > 0 ? (
-    orders.map((order, index) => (
+                        {orders.length&&orders.map((order, index) => (
                             <div key={index} className="flex flex-col md:flex-row gap-5 justify-between p-5 border-b border-gray-300">
                                 <div className="flex-1 flex gap-5 max-w-80">
                                     <Image
@@ -82,10 +81,7 @@ const MyOrders = () => {
                                     </p>
                                 </div>
                             </div>
-                            ))
-                        ) : (
-                            <p className="text-gray-500 text-center py-5">No orders found</p>
-                        )}
+                        ))}
                     </div>)}
                 </div>
             </div>
