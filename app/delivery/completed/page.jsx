@@ -67,7 +67,7 @@ const ProductList = () => {
     <div className="flex-1 min-h-screen flex flex-col justify-between">
       {loading ? (
         <Loading />
-                      ) : products.length === 0 ? (
+                      ) : products?.length === 0 ? (
                         <div className="flex flex-col items-center justify-center h-full">
                           <Image
                             src={assets.box_icon} 
@@ -100,20 +100,11 @@ const ProductList = () => {
                 </tr>
               </thead>
               <tbody className="text-sm text-gray-500">
-                {products.map((product, index) => (
+                {products?.map((product, index) => (
                   <tr key={index} className="border-t border-gray-500/20">
                     <td className="md:px-4  py-3 ">
                       <h1>{index + 1}</h1>
-                      {/* <div className="bg-gray-500/10 rounded p-2"> */}
-
-                      {/* <Image
-                          src={product.image[0]}
-                          alt="product Image"
-                          className="w-16"
-                          width={1280}
-                          height={720}
-                        /> */}
-                      {/* </div> */}
+                      
                     </td>
                     <td className="px-4 py-3 max-sm:hidden">
                       {product.customerId.name}
@@ -128,7 +119,7 @@ const ProductList = () => {
                         }
                         className="border rounded p-2 bg-gray-600 text-white"
                       >
-                        {statusOptions.map((status, i) => (
+                        {statusOptions?.map((status, i) => (
                           <option key={i} value={status}>
                             {status}
                           </option>
