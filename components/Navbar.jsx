@@ -98,14 +98,14 @@ const Navbar = () => {
   ) : null)
 }
 
-{isAuthenticated &&
+{/* {isAuthenticated &&
   (role === "delivery" ? (
     <Menu anchorEl={anchorEl} open={open} onClose={handleClose} PaperProps={{ style: { width: 200 } }}>
       <MenuItem onClick={() => { routes.push('/delivery'); handleClose(); }}>My Account</MenuItem>
       <MenuItem onClick={() => { handleSignOut(); handleClose(); }}>Logout</MenuItem>
     </Menu>
   ) : null)
-}
+} */}
 
       </ul>
     </div>
