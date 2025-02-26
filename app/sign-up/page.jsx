@@ -65,7 +65,7 @@ const SignUp = () => {
         const res = await axiosConfig.post("/api/auth/signup", updatedForm);
         login(res.data.user);
         router.push("/");
-        // updateCartQuantity("clearCart", 0);
+        updateCartQuantity("clearCart", 0);
         await signIn("credentials", {
           redirect: false,
           email: updatedForm.email,
