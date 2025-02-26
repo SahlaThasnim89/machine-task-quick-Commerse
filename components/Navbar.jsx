@@ -15,7 +15,6 @@ import toast from "react-hot-toast";
 
 
 const Navbar = () => {
-  const router=useRouter()
   const { name, email, isAuthenticated, logout, role } = useUserStore();
   console.log(isAuthenticated,role,'wertyuertyuwertyu')
   const {isSeller}=useAppStore()
@@ -26,9 +25,9 @@ const Navbar = () => {
   
   useEffect(() => {
     if (!isAuthenticated) {
-      router.push("/"); 
+      routes.push("/"); 
     }
-  }, [isAuthenticated, router]);
+  }, [isAuthenticated, routes]);
   
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -63,7 +62,7 @@ const Navbar = () => {
     <nav className="flex items-center justify-between px-6 md:px-16 lg:px-32 py-3 border-b border-gray-300 text-gray-700">
       <Image
         className="cursor-pointer w-28 md:w-32"
-        onClick={() => router.push('/')}
+        onClick={() => routes.push('/')}
         src={assets.logo}
         alt="logo"
       />
@@ -94,12 +93,14 @@ const Navbar = () => {
     <MenuItem onClick={() => { routes.push('/cart'); handleClose(); }}>My Cart</MenuItem>
     <MenuItem onClick={() => { handleSignOut(); handleClose(); }}>Logout</MenuItem>
   </Menu>
-) : role === "delivery" ? (
+)
+ : role === "delivery" ? (
   <Menu anchorEl={anchorEl} open={open} onClose={handleClose} PaperProps={{ style: { width: 200 } }}>
     <MenuItem onClick={() => { routes.push('/delivery'); handleClose(); }}>My Account</MenuItem>
     <MenuItem onClick={() => { handleSignOut(); handleClose(); }}>Logout</MenuItem>
   </Menu>
-) : null)}
+)
+ : null)}
       </ul>
     </div>
 
