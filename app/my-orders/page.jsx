@@ -19,9 +19,8 @@ const MyOrders = () => {
     const fetchOrders = async () => {
         try {
             setLoading(true);
-    
             const response = await axiosConfig.get("/api/orders");
-            // console.log(response)
+            console.log(response)
     
             if (!response.data) {
                 throw new Error("Failed to fetch orders");

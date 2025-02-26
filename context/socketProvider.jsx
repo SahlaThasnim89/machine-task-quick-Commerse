@@ -32,9 +32,7 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     if (data?.user) {
-      console.log(data.user.email,'email')
       socket.emit("joinRoom", data.user.email);
-      console.log('1111111111')
     }
   }, [data]);
 
