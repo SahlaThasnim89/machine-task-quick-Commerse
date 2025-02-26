@@ -11,13 +11,18 @@ export async function middleware(req) {
   console.log("Middleware running...");
 
   const path = req.nextUrl.pathname;
+  console.log(path,'pathsahla')
   // ("").startsWith
   // Check authentication token (NextAuth cookie handling)
   const isAuthenticated = !!(
     req.cookies.get("__Secure-next-auth.session-token") ||
     req.cookies.get("next-auth.session-token")
   );
+  console.log(isAuthenticated,'isAuthenticatedsahla')
+
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  console.log(token,'tokensahla')
+
   // If the user is on an auth route but already logged in, redirect to dashboard
   if (authRouter.includes(path)) {
     if (isAuthenticated) return NextResponse.redirect(new URL("/", req.url));
