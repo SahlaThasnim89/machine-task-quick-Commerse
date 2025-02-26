@@ -24,20 +24,20 @@ export async function middleware(req) {
     return NextResponse.next();
   }
 
-  if (
-    isAuthenticated &&
-    token &&
-    token.role === "customer" &&
-    path.startsWith("/delivery")
-  ) {
-    return NextResponse.redirect(new URL("/", req.url));
-  }
+  // if (
+  //   isAuthenticated &&
+  //   token &&
+  //   token.role === "customer" &&
+  //   path.startsWith("/delivery")
+  // ) {
+  //   return NextResponse.redirect(new URL("/", req.url));
+  // }
 
 
 
-  if(isAuthenticated&&token&&token.role !== "customer" &&path.startsWith("/customer")){
-    return NextResponse.redirect(new URL("/delivery", req.url));
-  }
+  // if(isAuthenticated&&token&&token.role !== "customer" &&path.startsWith("/customer")){
+  //   return NextResponse.redirect(new URL("/delivery", req.url));
+  // }
 
   //   if (!authRouter.includes(path)) {
   //     if (!isAuthenticated) {
