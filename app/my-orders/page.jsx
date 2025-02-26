@@ -75,7 +75,7 @@ const MyOrders = () => {
                     <span className="font-medium">
                     {order?.items?.map((item) => item.product.name + ` x ${item.quantity}`)?.join(", ")}
                     </span>
-                    <span>Items : {order?.items.length}</span>
+                    <span>Items : {order?.items?.length}</span>
                   </p>
                 </div>
                 <div>
@@ -93,7 +93,7 @@ const MyOrders = () => {
                 </div>
                 <p className="font-medium my-auto">
                   {currency}
-                  {order.amount}
+                  {order?.amount}
                 </p>
                 <div>
                   <p className="flex flex-col">

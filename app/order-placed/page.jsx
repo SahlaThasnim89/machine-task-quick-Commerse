@@ -11,7 +11,7 @@ const OrderPlaced = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      router.push('/my-orders')
+      router.push('/customer/orders')
     }, 5000)
   }, [])
 
