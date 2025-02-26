@@ -22,13 +22,15 @@ const Profile = () => {
       const fetchUser = async () => {
         try {
           const res = await axiosConfig.get("/api/user");
-          if (res.request.responseURL !== "/api/user") {
-            router.push(res.request.responseURL); // Redirect if the API triggers a redirect
+          if (res.data.redirect) {
+            router.push(res.data.redirect); // Redirect to role-based page
           } else {
-            console.log("User data:", res.data);
+            setUser(res.data.user);
+            setLoading(false);
           }
         } catch (error) {
           console.error("Error fetching user:", error);
+          setLoading(false);
         }
       };
   
