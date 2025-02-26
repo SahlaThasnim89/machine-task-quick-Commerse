@@ -7,32 +7,37 @@ import Footer from "@/components/seller/Footer";
 import Loading from "@/components/Loading";
 import axiosConfig from "@/utils/axiosConfig";
 import { useUserStore } from "@/Zustand/store";
+import { useRouter } from "next/navigation";
 
 
 
 const Profile = () => {
-
+    const router=useRouter()
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
     const haveuser=useUserStore()
 
     useEffect(() => {
-        const fetchUser = async () => {
-          try {
-            const res = await axiosConfig.get("/api/auth/user");
-            // console.log(res.data.user,'ioioi')
-            if (!res.data) throw new Error("Failed to fetch user");
-            setUser(res.data.user);
-          } catch (error) {
-            console.log(error);
-          } finally {
-            setLoading(false);
+      const fetchUser = async () => {
+        try {
+          const res = await axiosConfig.get("/api/user");
+          if (res.request.responseURL !== "/api/user") {
+            router.push(res.request.responseURL); // Redirect if the API triggers a redirect
+          } else {
+            console.log("User data:", res.data);
           }
-        };
-    
-        fetchUser();
-      }, []);
+        } catch (error) {
+          console.error("Error fetching user:", error);
+        }
+      };
+  
+      fetchUser();
+    }, [router]);
+  
+    return null;
+  };
+  
 
 
 

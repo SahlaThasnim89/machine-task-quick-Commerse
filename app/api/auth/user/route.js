@@ -18,6 +18,15 @@ export async function GET(){
           if (!user) {
             return NextResponse.json({ message: "User not found" }, { status: 404 });
           }
+
+          const role = user.role;
+
+          // Redirect based on user role
+          if (role === "customer") {
+            return NextResponse.redirect(new URL("/customer", req.url));
+          } else if (role === "delivery") {
+            return NextResponse.redirect(new URL("/delivery", req.url));
+          }
       
           return NextResponse.json({ user }, { status: 200 });
     }catch{
