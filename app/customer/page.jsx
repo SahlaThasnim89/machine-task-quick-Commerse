@@ -25,7 +25,7 @@ const Profile = () => {
       const fetchUser = async () => {
         try {
           const res = await axiosConfig.get("/api/user");
-          if (res.request.responseURL !== "/api/user") {
+          if (res.request.responseURL !== "/customer") {
             router.push(res.request.responseURL); // Redirect if the API triggers a redirect
           } else {
             console.log("User data:", res.data);
