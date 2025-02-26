@@ -87,26 +87,20 @@ const Navbar = () => {
           {isAuthenticated ? "Account" : "Login"}
         </button>
 
-
-        {isAuthenticated &&
-  (role === "customer" ? (
-    <Menu anchorEl={anchorEl} open={open} onClose={handleClose} PaperProps={{ style: { width: 200 } }}>
-      <MenuItem onClick={() => { routes.push('/customer'); handleClose(); }}>My Account</MenuItem>
-      <MenuItem onClick={() => { routes.push('/cart'); handleClose(); }}>My Cart</MenuItem>
-      <MenuItem onClick={() => { handleSignOut(); handleClose(); }}>Logout</MenuItem>
-    </Menu>
-  ) : null)
-}
-
-{/* {isAuthenticated &&
-  (role === "delivery" ? (
-    <Menu anchorEl={anchorEl} open={open} onClose={handleClose} PaperProps={{ style: { width: 200 } }}>
-      <MenuItem onClick={() => { routes.push('/delivery'); handleClose(); }}>My Account</MenuItem>
-      <MenuItem onClick={() => { handleSignOut(); handleClose(); }}>Logout</MenuItem>
-    </Menu>
-  ) : null)
-} */}
-
+        {isAuthenticated && (role === "customer" ? (
+  <Menu anchorEl={anchorEl} open={open} onClose={handleClose} PaperProps={{ style: { width: 200 } }}>
+    <MenuItem onClick={() => { routes.push('/customer'); handleClose(); }}>My Account</MenuItem>
+    <MenuItem onClick={() => { routes.push('/cart'); handleClose(); }}>My Cart</MenuItem>
+    <MenuItem onClick={() => { handleSignOut(); handleClose(); }}>Logout</MenuItem>
+  </Menu>
+)
+//  : role === "delivery" ? (
+//   <Menu anchorEl={anchorEl} open={open} onClose={handleClose} PaperProps={{ style: { width: 200 } }}>
+//     <MenuItem onClick={() => { routes.push('/delivery'); handleClose(); }}>My Account</MenuItem>
+//     <MenuItem onClick={() => { handleSignOut(); handleClose(); }}>Logout</MenuItem>
+//   </Menu>
+// )
+ : null)}
       </ul>
     </div>
 
