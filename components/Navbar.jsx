@@ -19,15 +19,15 @@ const Navbar = () => {
   console.log(isAuthenticated,role,'wertyuertyuwertyu')
   const {isSeller}=useAppStore()
   console.log(isAuthenticated,'isAuthenticated')
-  const routes = useRouter();
+  const router = useRouter();
   const {data:session,status}=useSession()
 
   
   useEffect(() => {
     if (!isAuthenticated) {
-      routes.push("/"); 
+      router.push("/"); 
     }
-  }, [isAuthenticated, routes]);
+  }, [isAuthenticated, router]);
   
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -36,7 +36,7 @@ const Navbar = () => {
     if (isAuthenticated) {
       setAnchorEl(event.currentTarget); 
     } else {
-      routes.push("/sign-In"); 
+      router.push("/sign-In"); 
     }
   };
 
@@ -62,7 +62,7 @@ const Navbar = () => {
     <nav className="flex items-center justify-between px-6 md:px-16 lg:px-32 py-3 border-b border-gray-300 text-gray-700">
       <Image
         className="cursor-pointer w-28 md:w-32"
-        onClick={() => routes.push('/')}
+        onClick={() => router.push('/')}
         src={assets.logo}
         alt="logo"
       />
@@ -89,14 +89,14 @@ const Navbar = () => {
 
         {isAuthenticated && (role === "customer" ? (
   <Menu anchorEl={anchorEl} open={open} onClose={handleClose} PaperProps={{ style: { width: 200 } }}>
-    <MenuItem onClick={() => { routes.push('/customer'); handleClose(); }}>My Account</MenuItem>
-    <MenuItem onClick={() => { routes.push('/cart'); handleClose(); }}>My Cart</MenuItem>
+    <MenuItem onClick={() => { router.push('/customer'); handleClose(); }}>My Account</MenuItem>
+    <MenuItem onClick={() => { router.push('/cart'); handleClose(); }}>My Cart</MenuItem>
     <MenuItem onClick={() => { handleSignOut(); handleClose(); }}>Logout</MenuItem>
   </Menu>
 )
  : role === "delivery" ? (
   <Menu anchorEl={anchorEl} open={open} onClose={handleClose} PaperProps={{ style: { width: 200 } }}>
-    <MenuItem onClick={() => { routes.push('/delivery'); handleClose(); }}>My Account</MenuItem>
+    <MenuItem onClick={() => { router.push('/delivery'); handleClose(); }}>My Account</MenuItem>
     <MenuItem onClick={() => { handleSignOut(); handleClose(); }}>Logout</MenuItem>
   </Menu>
 )
