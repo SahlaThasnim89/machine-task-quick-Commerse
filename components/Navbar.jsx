@@ -17,6 +17,7 @@ import toast from "react-hot-toast";
 const Navbar = () => {
   const router=useRouter()
   const { name, email, isAuthenticated, logout, role } = useUserStore();
+  console.log(isAuthenticated,role,'wertyuertyuwertyu')
   const {isSeller}=useAppStore()
   console.log(isAuthenticated,'isAuthenticated')
   const routes = useRouter();
@@ -93,14 +94,12 @@ const Navbar = () => {
     <MenuItem onClick={() => { routes.push('/cart'); handleClose(); }}>My Cart</MenuItem>
     <MenuItem onClick={() => { handleSignOut(); handleClose(); }}>Logout</MenuItem>
   </Menu>
-)
-//  : role === "delivery" ? (
-//   <Menu anchorEl={anchorEl} open={open} onClose={handleClose} PaperProps={{ style: { width: 200 } }}>
-//     <MenuItem onClick={() => { routes.push('/delivery'); handleClose(); }}>My Account</MenuItem>
-//     <MenuItem onClick={() => { handleSignOut(); handleClose(); }}>Logout</MenuItem>
-//   </Menu>
-// )
- : null)}
+) : role === "delivery" ? (
+  <Menu anchorEl={anchorEl} open={open} onClose={handleClose} PaperProps={{ style: { width: 200 } }}>
+    <MenuItem onClick={() => { routes.push('/delivery'); handleClose(); }}>My Account</MenuItem>
+    <MenuItem onClick={() => { handleSignOut(); handleClose(); }}>Logout</MenuItem>
+  </Menu>
+) : null)}
       </ul>
     </div>
 
