@@ -26,7 +26,7 @@ const Orders = () => {
     <div className="flex-1 h-screen overflow-scroll flex flex-col justify-between text-sm">
       {loading ? (
         <Loading />
-      ) : orders.length === 0 ? (
+      ) : orders?.length === 0 ? (
         <div className="flex flex-col items-center justify-center h-full">
           <Image
             src={assets.box_icon} 
@@ -40,7 +40,7 @@ const Orders = () => {
         <div className="md:p-10 p-4 space-y-5">
           <h2 className="text-lg font-medium">Orders</h2>
           <div className="max-w-4xl rounded-md">
-            {orders.map((order, index) => (
+            {orders?.map((order, index) => (
               <div
                 key={index}
                 className="flex flex-col md:flex-row gap-5 justify-between p-5 border-t border-gray-300"
@@ -55,35 +55,35 @@ const Orders = () => {
                     <span className="font-medium">
                       {order.items
                         .map(
-                          (item) => item.product.name + ` x ${item.quantity}`
+                          (item) => item?.product?.name + ` x ${item?.quantity}`
                         )
                         .join(", ")}
                     </span>
-                    <span>Items : {order.items.length}</span>
+                    <span>Items : {order?.items?.length}</span>
                   </p>
                 </div>
                 <div>
                   <p>
                     <span className="font-medium">
-                      {order.address.fullName}
+                      {order?.address?.fullName}
                     </span>
                     <br />
-                    <span>{order.address.area}</span>
+                    <span>{order?.address?.area}</span>
                     <br />
-                    <span>{`${order.address.city}, ${order.address.state}`}</span>
+                    <span>{`${order?.address?.city}, ${order?.address?.state}`}</span>
                     <br />
-                    <span>{order.address.phoneNumber}</span>
+                    <span>{order?.address?.phoneNumber}</span>
                   </p>
                 </div>
                 <p className="font-medium my-auto">
                   {currency}
-                  {order.amount}
+                  {order?.amount}
                 </p>
                 <div>
                   <p className="flex flex-col">
                     <span>Method : COD</span>
                     <span>
-                      Date : {new Date(order.date).toLocaleDateString()}
+                      Date : {new Date(order?.date).toLocaleDateString()}
                     </span>
                     <span>Payment : Pending</span>
                   </p>
