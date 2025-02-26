@@ -95,10 +95,12 @@ const Navbar = () => {
     <MenuItem onClick={() => { handleSignOut(); handleClose(); }}>Logout</MenuItem>
   </Menu>
 ) : role === "delivery" ? (
-  <Menu anchorEl={anchorEl} open={open} onClose={handleClose} PaperProps={{ style: { width: 200 } }}>
-    <MenuItem onClick={() => { routes.push('/delivery'); handleClose(); }}>My Account</MenuItem>
-    <MenuItem onClick={() => { handleSignOut(); handleClose(); }}>Logout</MenuItem>
-  </Menu>
+  <button
+  onClick={() => routes.push("/delivery")}
+  className="px-4 py-2 bg-blue-500 text-white rounded-lg"
+>
+  Delivery account
+</button>
 ) : null)}
       </ul>
     </div>
