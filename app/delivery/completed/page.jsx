@@ -107,7 +107,7 @@ const ProductList = () => {
                       
                     </td>
                     <td className="px-4 py-3 max-sm:hidden">
-                      {product.customerId.name}
+                      {product?.customerId?.name}
                     </td>
                     <td className="px-4 py-3">${product.orderAmount}</td>
                     <td className="px-4 py-3">{product.quantity}</td>
@@ -128,7 +128,7 @@ const ProductList = () => {
                     </td>
                   </tr>
                 ))}
-                {products.length === 0 && (
+                {products?.length === 0 && (
                   <tr className="border-t border-gray-500/20 flex items-center justify-start">
                     <td className="w-full  p-5"> ooops! no Deliverd orders</td>
                   </tr>
