@@ -73,26 +73,22 @@ const MyOrders = () => {
                   />
                   <p className="flex flex-col gap-3">
                     <span className="font-medium">
-                      {order?.items
-                        .map(
-                          (item) => item?.product.name + ` x ${item?.quantity}`
-                        )
-                        .join(", ")}
+                    {order?.items?.map((item) => item?.product?.name + ` x ${item?.quantity}`)?.join(", ")}
                     </span>
-                    <span>Items : {order?.items.length}</span>
+                    <span>Items : {order?.items?.length}</span>
                   </p>
                 </div>
                 <div>
                   <p>
                     <span className="font-medium">
-                      {order?.address.fullName}
+                      {order?.address?.fullName}
                     </span>
                     <br />
-                    <span>{order?.address.area}</span>
+                    <span>{order?.address?.area}</span>
                     <br />
-                    <span>{`${order?.address.city}, ${order?.address.state}`}</span>
+                    <span>{`${order?.address?.city}, ${order?.address?.state}`}</span>
                     <br />
-                    <span>{order?.address.phoneNumber}</span>
+                    <span>{order?.address?.phoneNumber}</span>
                   </p>
                 </div>
                 <p className="font-medium my-auto">
@@ -103,7 +99,7 @@ const MyOrders = () => {
                   <p className="flex flex-col">
                     <span>Method : COD</span>
                     <span>
-                      Date : {new Date(order?.date).toLocaleDateString()}
+                      Date : {order?.date ? new Date(order?.date).toLocaleDateString() : "N/A"}
                     </span>
                     <span>Payment : Pending</span>
                   </p>

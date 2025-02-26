@@ -8,9 +8,9 @@ const SideBar = () => {
     const pathname = usePathname()
     const menuItems = [
         { name: 'My Account', path: '/customer', icon: assets.user_icon },
-        // { name: 'My cart', path: '/cart', icon:  assets.cart_icon},
         { name: 'Orders', path: '/customer/orders', icon: assets.order_icon },
         { name: 'Order History', path: '/customer/orderHistory', icon: assets.menu_icon },
+        { name: 'My cart', path: '/cart', icon:  assets.cart_icon},
     ];
 
     return (
