@@ -38,8 +38,7 @@ const Profile = () => {
       fetchUser();
     }, [router]);
   
-    return null;
-  };
+
   
 
 
