@@ -26,7 +26,7 @@ const Orders = () => {
     <div className="flex-1 h-screen overflow-scroll flex flex-col justify-between text-sm">
       {loading ? (
         <Loading />
-      ) : orders?.length === 0 ? (
+      ) : orders.length === 0 ? (
         <div className="flex flex-col items-center justify-center h-full">
           <Image
             src={assets.box_icon} 
@@ -54,25 +54,25 @@ const Orders = () => {
                   <p className="flex flex-col gap-3">
                     <span className="font-medium">
                       {order?.items
-                        ?.map(
-                          (item) => item?.product?.name + ` x ${item?.quantity}`
+                        .map(
+                          (item) => item?.product.name + ` x ${item?.quantity}`
                         )
                         .join(", ")}
                     </span>
-                    <span>Items : {order?.items?.length}</span>
+                    <span>Items : {order?.items.length}</span>
                   </p>
                 </div>
                 <div>
                   <p>
                     <span className="font-medium">
-                      {order?.address?.fullName}
+                      {order?.address.fullName}
                     </span>
                     <br />
-                    <span>{order?.address?.area}</span>
+                    <span>{order?.address.area}</span>
                     <br />
-                    <span>{`${order?.address?.city}, ${order?.address?.state}`}</span>
+                    <span>{`${order?.address.city}, ${order?.address.state}`}</span>
                     <br />
-                    <span>{order?.address?.phoneNumber}</span>
+                    <span>{order?.address.phoneNumber}</span>
                   </p>
                 </div>
                 <p className="font-medium my-auto">
