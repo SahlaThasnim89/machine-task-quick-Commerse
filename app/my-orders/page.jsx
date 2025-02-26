@@ -74,8 +74,8 @@ const MyOrders = () => {
                   <p className="flex flex-col gap-3">
                     <span className="font-medium">
                       {order?.items
-                        .map(
-                          (item) => item?.product?.name + ` x ${item.quantity}`
+                        ?.map(
+                          (item) => item?.product?.name + ` x ${item?.quantity}`
                         )
                         .join(", ")}
                     </span>
@@ -103,7 +103,7 @@ const MyOrders = () => {
                   <p className="flex flex-col">
                     <span>Method : COD</span>
                     <span>
-                      Date : {new Date(order.date).toLocaleDateString()}
+                      Date : {new Date(order?.date).toLocaleDateString()}
                     </span>
                     <span>Payment : Pending</span>
                   </p>
