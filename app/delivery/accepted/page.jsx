@@ -25,13 +25,16 @@ const ProductList = () => {
       )
     );
     try {
-      const {data} = await axiosConfig.put(`/api/orders`, {
+      const { data } = await axiosConfig.put(`/api/orders`, {
         orderId,
         status: newStatus,
       });
 
-      console.log(data.order.customerId.email,'uuuuuuuuuuu')
-      socket.emit("orderStatusChange",{userId:data.order.customerId.email,status:newStatus})
+      console.log(data.order.customerId.email, "uuuuuuuuuuu");
+      socket.emit("orderStatusChange", {
+        userId: data.order.customerId.email,
+        status: newStatus,
+      });
       // console.log(res);
       setchanged(false);
       toast.success("stauts updated successfully");
@@ -61,16 +64,16 @@ const ProductList = () => {
     <div className="flex-1 min-h-screen flex flex-col justify-between">
       {loading ? (
         <Loading />
-              ) : products.length === 0 ? (
-                <div className="flex flex-col items-center justify-center h-full">
-                  <Image
-                    src={assets.box_icon} // Ensure `empty_box` exists in your assets
-                    alt="No Orders"
-                    width={150}
-                    height={150}
-                  />
-                  <p className="text-gray-500 text-lg mt-4">No orders found</p>
-                </div>
+      ) : products.length === 0 ? (
+        <div className="flex flex-col items-center justify-center h-full">
+          <Image
+            src={assets.box_icon} // Ensure `empty_box` exists in your assets
+            alt="No Orders"
+            width={150}
+            height={150}
+          />
+          <p className="text-gray-500 text-lg mt-4">No orders found</p>
+        </div>
       ) : (
         <div className="w-full md:p-10 p-4">
           <h2 className="pb-4 text-lg font-medium">All Accepted Orders</h2>
@@ -98,7 +101,6 @@ const ProductList = () => {
                   <tr key={index} className="border-t border-gray-500/20">
                     <td className="md:px-4  py-3 ">
                       <h1>{index + 1}</h1>
-
                     </td>
                     <td className="px-4 py-3 max-sm:hidden">
                       {product.customerId?.name}

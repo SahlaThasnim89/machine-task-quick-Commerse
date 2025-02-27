@@ -25,11 +25,14 @@ const ProductList = () => {
       )
     );
     try {
-      const {data} = await axiosConfig.put(`/api/orders`, {
+      const { data } = await axiosConfig.put(`/api/orders`, {
         orderId,
         status: newStatus,
       });
-      socket.emit("orderStatusChange",{userId:data.order.customerId.email,status:newStatus})
+      socket.emit("orderStatusChange", {
+        userId: data.order.customerId.email,
+        status: newStatus,
+      });
       // console.log(res);
       setchanged(false);
       toast.success("stauts updated successfully");
@@ -38,7 +41,6 @@ const ProductList = () => {
       console.log("error", error.message);
     }
   };
-
 
   const router = useRouter();
 

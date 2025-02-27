@@ -1,17 +1,13 @@
-'use client';
+"use client";
 import React, { useEffect, useState } from "react";
-import { assets, orderDummyData,productsDummyData } from "@/assets/assets";
+import { assets, orderDummyData, productsDummyData } from "@/assets/assets";
 import Image from "next/image";
- ;
 import Footer from "@/components/seller/Footer";
 import Loading from "@/components/Loading";
 import { useAppStore } from "@/context/AppContext";
 import axiosConfig from "@/utils/axiosConfig";
 
-
 const Orders = () => {
-
-
   const { currency } = useAppStore();
 
   const [orders, setOrders] = useState([]);
@@ -22,7 +18,7 @@ const Orders = () => {
       setLoading(true);
 
       const response = await axiosConfig.get("/api/orders?status=Delivered");
-    //   console.log(response);
+      //   console.log(response);
 
       if (!response.data) {
         throw new Error("Failed to fetch orders");
@@ -40,15 +36,15 @@ const Orders = () => {
     fetchOrders();
   }, []);
 
-    const getProductName = (id) => {
-      const product = productsDummyData.find((p) => p._id === id);
-      return product ? product.name : "Unknown Product";
-    };
-  
-    const getProductImage = (id) => {
-      const product = productsDummyData.find((p) => p._id === id);
-      return product?.image?.[0] || assets.box_icon;
-    };
+  const getProductName = (id) => {
+    const product = productsDummyData.find((p) => p._id === id);
+    return product ? product.name : "Unknown Product";
+  };
+
+  const getProductImage = (id) => {
+    const product = productsDummyData.find((p) => p._id === id);
+    return product?.image?.[0] || assets.box_icon;
+  };
 
   return (
     <div className="flex-1 h-screen overflow-scroll flex flex-col justify-between text-sm">
@@ -62,7 +58,9 @@ const Orders = () => {
             width={150}
             height={150}
           />
-          <p className="text-gray-500 text-lg mt-4">You have'nt ordered with us in past</p>
+          <p className="text-gray-500 text-lg mt-4">
+            You have'nt ordered with us in past
+          </p>
         </div>
       ) : (
         <div className="md:p-10 p-4 space-y-5">
@@ -74,19 +72,19 @@ const Orders = () => {
                 className="flex flex-col md:flex-row gap-5 justify-between p-5 border-t border-gray-300"
               >
                 <div className="flex-1 flex gap-5 max-w-80">
-                   {order.products.map((item) => (
-                                     <Image
-                                       key={item.id}
-                                       className="w-16 h-16 object-cover"
-                                       src={getProductImage(item.id) || assets.box_icon}
-                                       alt="Product Image"
-                                       width={64}
-                                       height={64}
-                                     />
-                                   ))}
+                  {order.products.map((item) => (
+                    <Image
+                      key={item.id}
+                      className="w-16 h-16 object-cover"
+                      src={getProductImage(item.id) || assets.box_icon}
+                      alt="Product Image"
+                      width={64}
+                      height={64}
+                    />
+                  ))}
                   <p className="flex flex-col gap-3">
                     <span className="font-medium">
-                    {order.products
+                      {order.products
                         .map(
                           (item) =>
                             `${getProductName(item.id)} x ${item.quantity}`
@@ -94,7 +92,10 @@ const Orders = () => {
                         .join(", ")}
                     </span>
                     <span>Items : {order.products.length}</span>
-                    {order?.deliveryPartnerId && <span>Delivered by: {order.deliveryPartnerId}</span>}                  </p>
+                    {order?.deliveryPartnerId && (
+                      <span>Delivered by: {order.deliveryPartnerId}</span>
+                    )}{" "}
+                  </p>
                 </div>
                 <div>
                   <p>
@@ -131,8 +132,5 @@ const Orders = () => {
     </div>
   );
 };
-
-
-
 
 export default Orders;

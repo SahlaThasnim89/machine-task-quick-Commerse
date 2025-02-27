@@ -116,16 +116,13 @@ export async function PUT(req) {
       updateData.deliveryPartnerId = user._id;
     }
 
-    // const updatedOrder = await Order.findOneAndUpdate(
-    //   { _id: orderId, },
-    //   updateData,
-    //   { new: true }
-    // ).populate("customerId");
     const updatedOrder = await Order.findOneAndUpdate(
       { _id: orderId },
       updateData,
       { new: true }
-    ).populate("customerId").populate("deliveryPartnerId");
+    )
+      .populate("customerId")
+      .populate("deliveryPartnerId");
 
     if (!updatedOrder) {
       return NextResponse.json(
@@ -133,9 +130,7 @@ export async function PUT(req) {
         { status: 404 }
       );
     }
-    
-    
-   
+
     return NextResponse.json(
       { message: "Order updated successfully", order: updatedOrder },
       { status: 200 }

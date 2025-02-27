@@ -38,8 +38,6 @@ const MyOrders = () => {
     fetchOrders();
   }, []);
 
-
-  
   const getProductName = (id) => {
     const product = productsDummyData.find((p) => p._id === id);
     return product ? product.name : "Unknown Product";
@@ -50,7 +48,7 @@ const MyOrders = () => {
     return product?.image?.[0] || assets.box_icon;
   };
 
-  console.log(orders)
+  console.log(orders);
 
   return (
     <div className="flex-1 h-screen overflow-scroll flex flex-col justify-between text-sm">
@@ -76,19 +74,19 @@ const MyOrders = () => {
                 className="flex flex-col md:flex-row gap-5 justify-between p-5 border-t border-gray-300"
               >
                 <div className="flex-1 flex gap-5 max-w-80">
-                {order.products.map((item) => (
-                                     <Image
-                                       key={item.id}
-                                       className="w-16 h-16 object-cover"
-                                       src={getProductImage(item.id) || assets.box_icon}
-                                       alt="Product Image"
-                                       width={64}
-                                       height={64}
-                                     />
-                                   ))}
+                  {order.products.map((item) => (
+                    <Image
+                      key={item.id}
+                      className="w-16 h-16 object-cover"
+                      src={getProductImage(item.id) || assets.box_icon}
+                      alt="Product Image"
+                      width={64}
+                      height={64}
+                    />
+                  ))}
                   <p className="flex flex-col gap-3">
                     <span className="font-medium">
-                    {order.products
+                      {order.products
                         .map(
                           (item) =>
                             `${getProductName(item.id)} x ${item.quantity}`
@@ -96,7 +94,9 @@ const MyOrders = () => {
                         .join(", ")}
                     </span>
                     <span>Items : {order.products.length}</span>
-                    {order?.deliveryPartnerId && <span>Delivery by: {order?.deliveryPartnerId?.name}</span>}    
+                    {order?.deliveryPartnerId && (
+                      <span>Delivery by: {order?.deliveryPartnerId?.name}</span>
+                    )}
                   </p>
                 </div>
                 <div>

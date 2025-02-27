@@ -29,7 +29,7 @@ const Orders = () => {
       ) : orders.length === 0 ? (
         <div className="flex flex-col items-center justify-center h-full">
           <Image
-            src={assets.box_icon} 
+            src={assets.box_icon}
             alt="No Orders"
             width={150}
             height={150}

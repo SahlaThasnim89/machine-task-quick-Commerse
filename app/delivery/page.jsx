@@ -1,74 +1,66 @@
-'use client'
+"use client";
 import React, { useEffect, useState } from "react";
 import { assets, orderDummyData } from "@/assets/assets";
 import Image from "next/image";
- 
+
 import Footer from "@/components/seller/Footer";
 import Loading from "@/components/Loading";
 import axiosConfig from "@/utils/axiosConfig";
 import { useUserStore } from "@/Zustand/store";
 import { useRouter } from "next/navigation";
 
-
-
 const Profile = () => {
-    const router=useRouter()
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+  const router = useRouter();
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-    const haveuser=useUserStore()
+  const haveuser = useUserStore();
 
-    useEffect(() => {
-      const fetchUser = async () => {
-        try {
-          const res = await axiosConfig.get("/api/user");
-          if (res.data.redirect) {
-            router.push(res.data.redirect); // Redirect to role-based page
-          } else {
-            setUser(res.data.user);
-            setLoading(false);
-          }
-        } catch (error) {
-          console.error("Error fetching user:", error);
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await axiosConfig.get("/api/user");
+        if (res.data.redirect) {
+          router.push(res.data.redirect); // Redirect to role-based page
+        } else {
+          setUser(res.data.user);
           setLoading(false);
         }
-      };
-  
-      fetchUser();
-    }, [router]);
-  
+      } catch (error) {
+        console.error("Error fetching user:", error);
+        setLoading(false);
+      }
+    };
 
-  
+    fetchUser();
+  }, [router]);
 
+  return (
+    <div className="flex-1 h-screen overflow-scroll flex flex-col justify-between text-sm">
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="md:p-10 p-4 space-y-5">
+          <h2 className="text-lg font-medium">My Account</h2>
 
-
-
-    return (
-        <div className="flex-1 h-screen overflow-scroll flex flex-col justify-between text-sm">
-            {loading ? <Loading /> : <div className="md:p-10 p-4 space-y-5">
-                <h2 className="text-lg font-medium">My Account</h2>
- 
-            <div className="flex flex-col md:flex-row items-center justify-center md:pl-20 py-14 md:py-0 bg-[#E6E9F2] my-2 rounded-xl overflow-hidden">
-
-<div className="flex flex-col items-center justify-center text-center space-y-2 px-4 py-24 md:px-0">
-<h2 className="text-2xl md:text-3xl font-semibold max-w-[290px]">
-    Welcome !
-  </h2>
-  <h2 className="text-2xl md:text-3xl text-orange-600 font-semibold max-w-[290px]">
-    {user?.name||haveuser.name}
-  </h2>
-  <p className="max-w-[343px] font-semibold text-gray-800/60 my-10 text-xl">
-    {user?.email||haveuser.email}
-  </p>
-
-
-</div>
-
-</div>
-            </div>}
-            <Footer />
+          <div className="flex flex-col md:flex-row items-center justify-center md:pl-20 py-14 md:py-0 bg-[#E6E9F2] my-2 rounded-xl overflow-hidden">
+            <div className="flex flex-col items-center justify-center text-center space-y-2 px-4 py-24 md:px-0">
+              <h2 className="text-2xl md:text-3xl font-semibold max-w-[290px]">
+                Welcome !
+              </h2>
+              <h2 className="text-2xl md:text-3xl text-orange-600 font-semibold max-w-[290px]">
+                {user?.name || haveuser.name}
+              </h2>
+              <p className="max-w-[343px] font-semibold text-gray-800/60 my-10 text-xl">
+                {user?.email || haveuser.email}
+              </p>
+            </div>
+          </div>
         </div>
-    );
+      )}
+      <Footer />
+    </div>
+  );
 };
 
 export default Profile;
