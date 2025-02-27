@@ -70,7 +70,7 @@ const SignUp = () => {
           password: updatedForm.password,
         });
 
-        console.log('yyyy')
+        console.log(a,'yyyy')
     
         if (!a?.error) {
           toast.success("Register successful");
