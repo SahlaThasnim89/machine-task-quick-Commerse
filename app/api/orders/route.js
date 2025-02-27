@@ -68,7 +68,7 @@ export async function GET(req) {
       customerId: user._id,
       status: newStatus,
     });
-    console.log(pendingOrders, "iuuyyu");
+    // console.log(pendingOrders, "iuuyyu");
 
     return NextResponse.json({ orders: pendingOrders }, { status: 200 });
   } catch (error) {

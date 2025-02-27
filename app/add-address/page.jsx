@@ -70,7 +70,7 @@ const AddAddress = () => {
         toast.error("Failed to fetch address.");
       }
     } catch (error) {
-      console.error(error);
+      console.log(error);
       toast.error("Error fetching address.");
     }
   };
@@ -102,7 +102,7 @@ const AddAddress = () => {
     e.preventDefault();
 
     if (!session || !user) {
-      console.log(session, "ghjhj");
+      // console.log(session, "ghjhj");
       toast.error("You must be logged in to add an address.");
       return;
     }
@@ -129,7 +129,7 @@ const AddAddress = () => {
         router.push("/cart");
       }
     } catch (error) {
-      console.error(error);
+      console.log(error);
       toast.error("Failed to add address.");
     }
   };

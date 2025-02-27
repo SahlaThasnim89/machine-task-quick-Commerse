@@ -8,7 +8,7 @@ export async function GET() {
   try {
     await connectDB();
     const session = await getServerSession(authOptions);
-    console.log(session);
+    // console.log(session);
 
     if (!session || !session.user) {
       return NextResponse.json(

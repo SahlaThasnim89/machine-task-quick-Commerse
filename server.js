@@ -17,14 +17,14 @@ app.prepare().then(() => {
     console.log("🟡 socket is connected ");
 
     socket.on("joinRoom", (id) => {
-      console.log(id,"id")
+      // console.log(id,"id")
       socket.join(id); // Join a room based on order ID
     });
 
     socket.on("orderStatusChange",value=>{
-      console.log("it happend")
+      // console.log("it happend")
       if(!value?.userId || !value.status) return null
-      console.log(value.userId,"userID on order upadetd")
+      // console.log(value.userId,"userID on order upadetd")
         io.in(value.userId).emit("orderUpdated","order updated to "+value.status)
     })
 

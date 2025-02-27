@@ -30,7 +30,7 @@ const ProductList = () => {
         status: newStatus,
       });
 
-      console.log(data.order.customerId.email, "uuuuuuuuuuu");
+      // console.log(data.order.customerId.email, "uuuuuuuuuuu");
       socket.emit("orderStatusChange", {
         userId: data.order.customerId.email,
         status: newStatus,

@@ -47,7 +47,7 @@ const handleSubmit = async (e) => {
 
   const res = await signIn("credentials", { redirect: false, ...updatedForm });
 
-  console.log("Response:", res);
+  // console.log("Response:", res);
 
   if (!res?.error) { 
     toast.success("Login successful");
@@ -61,11 +61,11 @@ const handleSubmit = async (e) => {
 
     router.push("/");
   } else if (res?.status === 401) {
+    setPending(false);
     toast.error("Invalid credentials");
-    setPending(false);
   } else {
-    toast.error("Something went wrong");
     setPending(false);
+    toast.error("Something went wrong");
   }
 };
 

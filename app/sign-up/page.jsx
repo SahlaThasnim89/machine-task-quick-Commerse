@@ -50,55 +50,8 @@ const SignUp = () => {
     return Object.keys(newErrors).length === 0; 
   };
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     if (!validateForm()) {
-    //       return;
-    //     }
-    //     setPending(true)
-    //     const updatedForm = {
-    //       ...form,
-    //       role: isDeliveryPartner ? "delivery" : "customer"
-    //   };
-    //   console.log(updatedForm)
-    //   try {
-    //     const res = await axiosConfig.post("/api/auth/signup", updatedForm);
-        
-        
-        
-    //     let a=await signIn("credentials", {
-    //       redirect: false,
-    //       email: updatedForm.email,
-    //       password: updatedForm.password,
-    //     });
-
-    //     if (!a?.error) { 
-    //       toast.success("Register successful");
-      
-    //       const userRes = await getSession();  
-    //       // console.log("User Data:", userRes);
-      
-    //       if (userRes?.user) {
-    //         login(userRes.user); 
-    //       }
-        
-    //     // login(res.data.user);
-    //     router.push("/");
-    //     updateCartQuantity("clearCart", 0);
-
-    //     }
-    //     // console.log(a,'gggggggggggggggggggggggggggggggggggggg')
-    //     // toast.success(res.data.message || "Signup successful!");
-    //   } catch (error) {
-    //     console.log("Signup Error:", error);
     
-    //     if (error.response && error.response.data) {
-    //       toast.error(error.response.data.message || "Something went wrong!");
-    //     } else {
-    //       toast.error("Network error. Please try again.");
-    //     }
-    //   }
-    // }
+        
 
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -129,8 +82,11 @@ const SignUp = () => {
     
           router.push("/");
           updateCartQuantity("clearCart", 0);
+        }else{
+          setPending(false); 
         }
       } catch (error) {
+        setPending(false)
         console.log("Signup Error:", error);
         if (error.response && error.response.data) {
           toast.error(error.response.data.message || "Something went wrong!");

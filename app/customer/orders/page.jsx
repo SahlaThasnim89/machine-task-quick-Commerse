@@ -48,7 +48,7 @@ const MyOrders = () => {
     return product?.image?.[0] || assets.box_icon;
   };
 
-  console.log(orders);
+  // console.log(orders);
 
   return (
     <div className="flex-1 h-screen overflow-scroll flex flex-col justify-between text-sm">
