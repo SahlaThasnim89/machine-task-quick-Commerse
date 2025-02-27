@@ -49,9 +49,7 @@ const SignUp = () => {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0; 
   };
-
-    
-        
+      
 
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -71,6 +69,8 @@ const SignUp = () => {
           email: updatedForm.email,
           password: updatedForm.password,
         });
+
+        console.log('yyyy')
     
         if (!a?.error) {
           toast.success("Register successful");
