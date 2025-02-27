@@ -16,11 +16,12 @@ import toast from "react-hot-toast";
 
 const Navbar = () => {
   const { name, email, isAuthenticated, logout, role } = useUserStore();
-  console.log(isAuthenticated,role,'wertyuertyuwertyu')
+  // console.log(isAuthenticated,role,'wertyuertyuwertyu')
   const {isSeller}=useAppStore()
-  console.log(isAuthenticated,'isAuthenticated')
+  // console.log(isAuthenticated,'isAuthenticated')
   const router = useRouter();
   const {data:session,status}=useSession()
+  console.log(data,status,'rtytrt')
 
   
   useEffect(() => {
