@@ -75,6 +75,7 @@ const SignUp = () => {
         if (!a?.error) {
           toast.success("Register successful");
           const userRes = await getSession();
+          console.log(userRes,'llp')
     
           if (userRes?.user) {
             login(userRes.user);
